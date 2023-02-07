@@ -22,7 +22,6 @@ def flush(obj, end_time):
         else:
             obj['url'] = 'https://www.youtube.com/embed/' + obj['source'] + f'?start={t}'
     else:
-        t = read_timestamp(obj['start_time'])
         if end_time:
             end_time = read_timestamp(end_time)
             obj['end'] = end_time
