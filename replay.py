@@ -1,3 +1,6 @@
+"""
+read brushlyk snapshots, needs a patched yjs-websocket server that returns a json document on connection
+"""
 import json
 import websocket
 import argparse

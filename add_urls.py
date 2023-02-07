@@ -1,15 +1,53 @@
 import json
 import sys
-from datetime import datetime
+import subprocess
+
+# def file_duration(x):
+#     cmd = "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1".split()
+#     return subprocess.check_output(cmd + [x])
+
+def read_timestamp(x):
+    hh,mm,ss = map(int, x.split(':'))
+    return ss + mm*60 + hh*60
+
+def flush(obj, end_time):
+    if obj['domain'] == 'youtube':
+        t = read_timestamp(obj['start_time'])
+        if end_time:
+            end_time = read_timestamp(end_time)
+            obj['url'] = 'https://www.youtube.com/embed/' + obj['source'] + f'?start={t}&end={end_time}'
+        else:
+            obj['url'] = 'https://www.youtube.com/embed/' + obj['source'] + f'?start={t}'
+    else:
+        t = read_timestamp(obj['start_time'])
+        if end_time:
+            end_time = read_timestamp(end_time)
+            obj['start'] = t
+            del obj['start_time']
+            obj['end'] = end_time
+            obj['url'] = f"https://a.wilab.org.ua/uk1e2/mp4/{obj['source']}.mp4?start={t}&end={end_time}"
+        else:
+            obj['url'] = f"https://a.wilab.org.ua/uk1e2/mp4/{obj['source']}.mp4?start={t}"
+
+    print(json.dumps(obj, ensure_ascii=False), flush=True)
+
+def catch(f, *args):
+    try:
+        f(*args)
+    except Exception as e:
+        raise ValueError(*args) from e
 
 
+prev = None
 for line in sys.stdin:
     obj = json.loads(line)
 
-    try:
-        h,m,s = obj['start_time'].split(':')
-        obj['url'] = 'https://youtu.be/' + obj['source'] + '?t=' + str(int(s) + int(m)*60 + int(h)*60*60)
-    except:
-        print(obj, file=sys.stderr)
+    if prev:
+        if obj['source'] != prev['source']:
+            catch(flush, prev, None)
+        else:
+            catch(flush, prev, obj['start_time'])
 
-    print(json.dumps(obj, ensure_ascii=False))
+    prev = obj
+    
+flush(obj, end_time=None)
