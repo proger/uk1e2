@@ -12,7 +12,6 @@ def read_timestamp(x):
 
 def flush(obj, end_time):
     t = read_timestamp(obj['start_time'])
-    del obj['start_time']
     obj['start'] = t
 
     if obj['domain'] == 'youtube':
