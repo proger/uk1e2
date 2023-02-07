@@ -16,3 +16,5 @@ uk1e2.jsonl: uk1e2.csv
 
 clean:
 	rm -f uk1e2.db uk1e2.jsonl ytable1.jsonl youtube1.tsv
+
+.DELETE_ON_ERROR:
