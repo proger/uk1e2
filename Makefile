@@ -42,9 +42,11 @@ news/webm: news/urls
 news/text: news/text.jsonl
 	mkdir -p $@; < $^ jq -rc 'to_entries[] | "cat > news/text/\(.key) << \"EOF\"\n\(.value)\nEOF"' | bash -x
 
-# generate a script that aligns all news to news/align/
-news/align.sh: news/index.json news/text news/webm
-	< news/index.json jq -r '.rows[][0] | "python -m align -o $(PWD)/news/align/\(.).json $(PWD)/news/webm/\(.).webm $(PWD)/news/text/news-\(.)"' > $@
+# generate a Makefile script that aligns all news to news/align/
+news/align.mk: news/index.json news/text news/webm
+	< news/index.json jq -r '.rows[][0] | "$(PWD)/news/align/\(.).json: $(PWD)/news/webm/\(.).webm $(PWD)/news/text/news-\(.)\n\tpython -m align -o $$@ $$^"' > $@
+	< news/index.json jq -r '.rows[][0] | "ALL += $(PWD)/news/align/\(.).json"' >> $@
+	echo 'all: $$(ALL)' >> $@
 	mkdir -p news/align
 
 clean:
