@@ -23,6 +23,12 @@ uk1e2.jsonl: uk1e2.csv
 news/text.jsonl: news/index.json
 	< $^ jq -r '.rows[][0] | "news-\(.)"' | xargs python -m replay > $@
 
+news/urls: news/index.json
+	< $^ jq -r '.rows[][-2]' | sed 's,/wavesurfer/,/file/,g' > $@
+
+news/webm: news/urls
+	mkdir -p $@; cd $@; cat ../urls | xargs -n1 -P16 -t curl -s -u oco:mykolynapohoda -C - -O
+
 clean:
 	rm -f uk1e2.db uk1e2.jsonl ytable1.jsonl youtube1.tsv
 
