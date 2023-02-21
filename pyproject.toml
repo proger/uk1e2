@@ -24,9 +24,11 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
+  "pandas",
   "moviepy",
   "requests",
-  "yt-dlp"
+  "websocket",
+  "yt-dlp",
 ]
 dynamic = ["version"]
 
