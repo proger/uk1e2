@@ -42,6 +42,11 @@ news/webm: news/urls
 news/text: news/text.jsonl
 	mkdir -p $@; < $^ jq -rc 'to_entries[] | "cat > news/text/\(.key) << \"EOF\"\n\(.value)\nEOF"' | bash -x
 
+# generate a script that aligns all news to news/align/
+news/align.sh: news/index.json news/text news/webm
+	< news/index.json jq -r '.rows[][0] | "python -m align -o $(PWD)/news/align/\(.).json $(PWD)/news/webm/\(.).webm $(PWD)/news/text/news-\(.)"' > $@
+	mkdir -p news/align
+
 clean:
 	rm -f uk1e2.db uk1e2.jsonl ytable1.jsonl youtube1.tsv
 
