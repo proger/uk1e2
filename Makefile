@@ -8,7 +8,7 @@ uk1e2.db: uk1e2.jsonl ytable1.jsonl
 utterances.csv: uk1e2.db
 	sqlite-utils rows uk1e2.db utterances --csv > $@
 
-# prepare youtube+uk1e2 data
+# prepare youtube+uk1e2 data for WER evaluation
 prepare: utterances.csv
 	python -m uk1e2.prep_test_data
 
@@ -40,7 +40,7 @@ news/webm: news/urls
 
 # directory individual text files with news transcripts
 news/text: news/text.jsonl
-	< news/text.jsonl | jq -rc 'to_entries[] | "cat news/text/\(.key) << EOF\n\(.value)\nEOF"'
+	mkdir -p $@; < $^ jq -rc 'to_entries[] | "cat > news/text/\(.key) << \"EOF\"\n\(.value)\nEOF"' | bash -x
 
 clean:
 	rm -f uk1e2.db uk1e2.jsonl ytable1.jsonl youtube1.tsv
