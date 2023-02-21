@@ -1,0 +1,351 @@
+{
+  "transcript": "\nАнастасія Тітова, ведуча: Офіційний курс НБУ становить 28 гривень 48 копійок за 1 долар США.\n",
+  "words": [
+    {
+      "case": "not-found-in-audio",
+      "endOffset": 10,
+      "startOffset": 1,
+      "word": "Анастасія"
+    },
+    {
+      "case": "not-found-in-audio",
+      "endOffset": 17,
+      "startOffset": 11,
+      "word": "Тітова"
+    },
+    {
+      "case": "not-found-in-audio",
+      "endOffset": 25,
+      "startOffset": 19,
+      "word": "ведуча"
+    },
+    {
+      "alignedWord": "офіційний",
+      "case": "success",
+      "end": 8.190000000000001,
+      "endOffset": 36,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "AO_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "F2_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_E"
+        }
+      ],
+      "start": 7.65,
+      "startOffset": 27,
+      "word": "Офіційний"
+    },
+    {
+      "alignedWord": "курс",
+      "case": "success",
+      "end": 8.459999999999999,
+      "endOffset": 41,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "K_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "S_E"
+        }
+      ],
+      "start": 8.19,
+      "startOffset": 37,
+      "word": "курс"
+    },
+    {
+      "alignedWord": "нбу",
+      "case": "success",
+      "end": 8.82,
+      "endOffset": 45,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "B_I"
+        },
+        {
+          "duration": 0.18,
+          "phone": "UH_E"
+        }
+      ],
+      "start": 8.49,
+      "startOffset": 42,
+      "word": "НБУ"
+    },
+    {
+      "alignedWord": "становить",
+      "case": "success",
+      "end": 9.42,
+      "endOffset": 55,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 8.82,
+      "startOffset": 46,
+      "word": "становить"
+    },
+    {
+      "alignedWord": "<unk>",
+      "case": "success",
+      "end": 10.229999999999999,
+      "endOffset": 58,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "SPN_S"
+        }
+      ],
+      "start": 10.2,
+      "startOffset": 56,
+      "word": "28"
+    },
+    {
+      "alignedWord": "гривень",
+      "case": "success",
+      "end": 10.620000000000001,
+      "endOffset": 66,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "H_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "NJ_E"
+        }
+      ],
+      "start": 10.23,
+      "startOffset": 59,
+      "word": "гривень"
+    },
+    {
+      "alignedWord": "<unk>",
+      "case": "success",
+      "end": 11.34,
+      "endOffset": 69,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "SPN_S"
+        }
+      ],
+      "start": 11.31,
+      "startOffset": 67,
+      "word": "48"
+    },
+    {
+      "alignedWord": "копійок",
+      "case": "success",
+      "end": 11.85,
+      "endOffset": 77,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "K_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AOU_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P2_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "K_E"
+        }
+      ],
+      "start": 11.34,
+      "startOffset": 70,
+      "word": "копійок"
+    },
+    {
+      "alignedWord": "за",
+      "case": "success",
+      "end": 12.15,
+      "endOffset": 80,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 11.91,
+      "startOffset": 78,
+      "word": "за"
+    },
+    {
+      "alignedWord": "<unk>",
+      "case": "success",
+      "end": 12.18,
+      "endOffset": 82,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "SPN_S"
+        }
+      ],
+      "start": 12.15,
+      "startOffset": 81,
+      "word": "1"
+    },
+    {
+      "alignedWord": "долар",
+      "case": "success",
+      "end": 12.899999999999999,
+      "endOffset": 88,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "R_E"
+        }
+      ],
+      "start": 12.45,
+      "startOffset": 83,
+      "word": "долар"
+    },
+    {
+      "alignedWord": "сша",
+      "case": "success",
+      "end": 13.38,
+      "endOffset": 92,
+      "phones": [
+        {
+          "duration": 0.21,
+          "phone": "SH3_B"
+        },
+        {
+          "duration": 0.21,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 12.96,
+      "startOffset": 89,
+      "word": "США"
+    }
+  ]
+}

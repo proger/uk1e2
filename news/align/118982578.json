@@ -1,0 +1,5925 @@
+{
+  "transcript": "\nСвятослав ГРИНЧУК, ведучий: == Стукають у двері й погрожують родичам. Таліби почали полювання на афганців, які співпрацювали з НАТО та попереднім урядом. Про таке йдеться у конфіденційному документі ООН, який потрапив у розпорядження британських журналістів. За їхніми даними бойовики входять до будинків людей, шукають підозрюваних і погрожують членам їхніх родин і всім, хто потрапив до чорного списку загрожує навіть страта. Хоча раніше в Талібані пообіцяли, що після захоплення влади помсти не буде. Тим часом в аеропорту Кабула іще близько 6 тисяч людей чекають на евакуацію. Серед них є афганці, яких може переслідувати нова влада і які хочуть отримати спеціальні міграційні візи.\nЛісові пожежі охопили південь Португалії. Найдужче дісталося району Алгарве. Полум'я вже випалило близько 9 тисяч гектарів території й дісталося національного заповідника, де мешкають олені. До гасіння займань залучили близько 6 сотень надзвичайників, понад дві сотні одиниць техніки. Зокрема, і літаки. Однак локалізувати займання не вдається через сильний вітер та спеку. Гаряче повітря, як кажуть синоптики, принесло з Африки. Нині окрім Португалії осередки займань фіксують і в інших країнах Європи, як от у Франції, Італії, Греції та Іспанії.\n",
+  "words": [
+    {
+      "case": "not-found-in-audio",
+      "endOffset": 10,
+      "startOffset": 1,
+      "word": "Святослав"
+    },
+    {
+      "case": "not-found-in-audio",
+      "endOffset": 18,
+      "startOffset": 11,
+      "word": "ГРИНЧУК"
+    },
+    {
+      "case": "not-found-in-audio",
+      "endOffset": 27,
+      "startOffset": 20,
+      "word": "ведучий"
+    },
+    {
+      "alignedWord": "стукають",
+      "case": "success",
+      "end": 6.63,
+      "endOffset": 40,
+      "phones": [
+        {
+          "duration": 0.15,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 6.09,
+      "startOffset": 32,
+      "word": "Стукають"
+    },
+    {
+      "alignedWord": "у",
+      "case": "success",
+      "end": 6.6899999999999995,
+      "endOffset": 42,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "UH_S"
+        }
+      ],
+      "start": 6.63,
+      "startOffset": 41,
+      "word": "у"
+    },
+    {
+      "alignedWord": "двері",
+      "case": "success",
+      "end": 6.99,
+      "endOffset": 48,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 6.69,
+      "startOffset": 43,
+      "word": "двері"
+    },
+    {
+      "alignedWord": "й",
+      "case": "success",
+      "end": 7.08,
+      "endOffset": 50,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "Y_S"
+        }
+      ],
+      "start": 6.99,
+      "startOffset": 49,
+      "word": "й"
+    },
+    {
+      "alignedWord": "погрожують",
+      "case": "success",
+      "end": 7.8,
+      "endOffset": 61,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "ZH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 7.08,
+      "startOffset": 51,
+      "word": "погрожують"
+    },
+    {
+      "alignedWord": "родичам",
+      "case": "success",
+      "end": 8.55,
+      "endOffset": 69,
+      "phones": [
+        {
+          "duration": 0.15,
+          "phone": "R_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_E"
+        }
+      ],
+      "start": 7.83,
+      "startOffset": 62,
+      "word": "родичам"
+    },
+    {
+      "alignedWord": "таліби",
+      "case": "success",
+      "end": 9.0,
+      "endOffset": 77,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "B_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 8.55,
+      "startOffset": 71,
+      "word": "Таліби"
+    },
+    {
+      "alignedWord": "почали",
+      "case": "success",
+      "end": 9.39,
+      "endOffset": 84,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 9.0,
+      "startOffset": 78,
+      "word": "почали"
+    },
+    {
+      "alignedWord": "полювання",
+      "case": "success",
+      "end": 9.84,
+      "endOffset": 94,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "NJ3_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 9.39,
+      "startOffset": 85,
+      "word": "полювання"
+    },
+    {
+      "alignedWord": "на",
+      "case": "success",
+      "end": 9.959999999999999,
+      "endOffset": 97,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 9.84,
+      "startOffset": 95,
+      "word": "на"
+    },
+    {
+      "alignedWord": "афганців",
+      "case": "success",
+      "end": 10.38,
+      "endOffset": 106,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "AA_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "F_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "WH_E"
+        }
+      ],
+      "start": 9.96,
+      "startOffset": 98,
+      "word": "афганців"
+    },
+    {
+      "alignedWord": "які",
+      "case": "success",
+      "end": 10.590000000000002,
+      "endOffset": 111,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K2_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 10.38,
+      "startOffset": 108,
+      "word": "які"
+    },
+    {
+      "alignedWord": "співпрацювали",
+      "case": "success",
+      "end": 11.28,
+      "endOffset": 125,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P2_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "WH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 10.59,
+      "startOffset": 112,
+      "word": "співпрацювали"
+    },
+    {
+      "alignedWord": "з",
+      "case": "success",
+      "end": 11.399999999999999,
+      "endOffset": 127,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "Z_S"
+        }
+      ],
+      "start": 11.28,
+      "startOffset": 126,
+      "word": "з"
+    },
+    {
+      "alignedWord": "нато",
+      "case": "success",
+      "end": 11.82,
+      "endOffset": 132,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.15,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 11.4,
+      "startOffset": 128,
+      "word": "НАТО"
+    },
+    {
+      "alignedWord": "та",
+      "case": "success",
+      "end": 12.030000000000001,
+      "endOffset": 135,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 11.82,
+      "startOffset": 133,
+      "word": "та"
+    },
+    {
+      "alignedWord": "попереднім",
+      "case": "success",
+      "end": 12.57,
+      "endOffset": 146,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "DJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_E"
+        }
+      ],
+      "start": 12.03,
+      "startOffset": 136,
+      "word": "попереднім"
+    },
+    {
+      "alignedWord": "урядом",
+      "case": "success",
+      "end": 13.049999999999999,
+      "endOffset": 153,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "UH_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "M_E"
+        }
+      ],
+      "start": 12.6,
+      "startOffset": 147,
+      "word": "урядом"
+    },
+    {
+      "alignedWord": "про",
+      "case": "success",
+      "end": 13.44,
+      "endOffset": 158,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 13.26,
+      "startOffset": 155,
+      "word": "Про"
+    },
+    {
+      "alignedWord": "таке",
+      "case": "success",
+      "end": 13.59,
+      "endOffset": 163,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 13.44,
+      "startOffset": 159,
+      "word": "таке"
+    },
+    {
+      "alignedWord": "йдеться",
+      "case": "success",
+      "end": 14.04,
+      "endOffset": 171,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "TSJ3_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 13.59,
+      "startOffset": 164,
+      "word": "йдеться"
+    },
+    {
+      "alignedWord": "у",
+      "case": "success",
+      "end": 14.1,
+      "endOffset": 173,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "UH_S"
+        }
+      ],
+      "start": 14.04,
+      "startOffset": 172,
+      "word": "у"
+    },
+    {
+      "alignedWord": "конфіденційному",
+      "case": "success",
+      "end": 14.91,
+      "endOffset": 189,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "K_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "F2_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_E"
+        }
+      ],
+      "start": 14.1,
+      "startOffset": 174,
+      "word": "конфіденційному"
+    },
+    {
+      "alignedWord": "документі",
+      "case": "success",
+      "end": 15.39,
+      "endOffset": 199,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 14.91,
+      "startOffset": 190,
+      "word": "документі"
+    },
+    {
+      "alignedWord": "оон",
+      "case": "success",
+      "end": 15.78,
+      "endOffset": 203,
+      "phones": [
+        {
+          "duration": 0.15,
+          "phone": "AO_B"
+        },
+        {
+          "duration": 0.15,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_E"
+        }
+      ],
+      "start": 15.42,
+      "startOffset": 200,
+      "word": "ООН"
+    },
+    {
+      "alignedWord": "який",
+      "case": "success",
+      "end": 16.02,
+      "endOffset": 209,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_E"
+        }
+      ],
+      "start": 15.78,
+      "startOffset": 205,
+      "word": "який"
+    },
+    {
+      "alignedWord": "потрапив",
+      "case": "success",
+      "end": 16.41,
+      "endOffset": 218,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "WH_E"
+        }
+      ],
+      "start": 16.02,
+      "startOffset": 210,
+      "word": "потрапив"
+    },
+    {
+      "alignedWord": "у",
+      "case": "success",
+      "end": 16.44,
+      "endOffset": 220,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "UH_S"
+        }
+      ],
+      "start": 16.41,
+      "startOffset": 219,
+      "word": "у"
+    },
+    {
+      "alignedWord": "розпорядження",
+      "case": "success",
+      "end": 17.1,
+      "endOffset": 234,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "R_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "JH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "NJ3_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 16.44,
+      "startOffset": 221,
+      "word": "розпорядження"
+    },
+    {
+      "alignedWord": "британських",
+      "case": "success",
+      "end": 18.03,
+      "endOffset": 246,
+      "phones": [
+        {
+          "duration": 0.15,
+          "phone": "B_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "SJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "X_E"
+        }
+      ],
+      "start": 17.34,
+      "startOffset": 235,
+      "word": "британських"
+    },
+    {
+      "alignedWord": "журналістів",
+      "case": "success",
+      "end": 18.66,
+      "endOffset": 258,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "ZH_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "SJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "TJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "WH_E"
+        }
+      ],
+      "start": 18.03,
+      "startOffset": 247,
+      "word": "журналістів"
+    },
+    {
+      "alignedWord": "за",
+      "case": "success",
+      "end": 19.11,
+      "endOffset": 262,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 18.93,
+      "startOffset": 260,
+      "word": "За"
+    },
+    {
+      "alignedWord": "їхніми",
+      "case": "success",
+      "end": 19.38,
+      "endOffset": 269,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "X_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 19.11,
+      "startOffset": 263,
+      "word": "їхніми"
+    },
+    {
+      "alignedWord": "даними",
+      "case": "success",
+      "end": 19.8,
+      "endOffset": 276,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 19.38,
+      "startOffset": 270,
+      "word": "даними"
+    },
+    {
+      "alignedWord": "бойовики",
+      "case": "success",
+      "end": 20.25,
+      "endOffset": 285,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "B_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IH1_E"
+        }
+      ],
+      "start": 19.83,
+      "startOffset": 277,
+      "word": "бойовики"
+    },
+    {
+      "alignedWord": "входять",
+      "case": "success",
+      "end": 20.61,
+      "endOffset": 293,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "WH_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "X_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "DJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 20.25,
+      "startOffset": 286,
+      "word": "входять"
+    },
+    {
+      "alignedWord": "до",
+      "case": "success",
+      "end": 20.73,
+      "endOffset": 296,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 20.61,
+      "startOffset": 294,
+      "word": "до"
+    },
+    {
+      "alignedWord": "будинків",
+      "case": "success",
+      "end": 21.09,
+      "endOffset": 305,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "B_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K2_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "WH_E"
+        }
+      ],
+      "start": 20.73,
+      "startOffset": 297,
+      "word": "будинків"
+    },
+    {
+      "alignedWord": "людей",
+      "case": "success",
+      "end": 21.45,
+      "endOffset": 311,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "LJ_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_E"
+        }
+      ],
+      "start": 21.09,
+      "startOffset": 306,
+      "word": "людей"
+    },
+    {
+      "alignedWord": "шукають",
+      "case": "success",
+      "end": 21.99,
+      "endOffset": 320,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "SH_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 21.45,
+      "startOffset": 313,
+      "word": "шукають"
+    },
+    {
+      "alignedWord": "підозрюваних",
+      "case": "success",
+      "end": 22.83,
+      "endOffset": 333,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P2_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "Z_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "X_E"
+        }
+      ],
+      "start": 21.99,
+      "startOffset": 321,
+      "word": "підозрюваних"
+    },
+    {
+      "alignedWord": "і",
+      "case": "success",
+      "end": 22.98,
+      "endOffset": 335,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "IY1_S"
+        }
+      ],
+      "start": 22.86,
+      "startOffset": 334,
+      "word": "і"
+    },
+    {
+      "alignedWord": "погрожують",
+      "case": "success",
+      "end": 23.76,
+      "endOffset": 346,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "ZH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 22.98,
+      "startOffset": 336,
+      "word": "погрожують"
+    },
+    {
+      "alignedWord": "членам",
+      "case": "success",
+      "end": 24.180000000000003,
+      "endOffset": 353,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "CH_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_E"
+        }
+      ],
+      "start": 23.76,
+      "startOffset": 347,
+      "word": "членам"
+    },
+    {
+      "alignedWord": "їхніх",
+      "case": "success",
+      "end": 24.57,
+      "endOffset": 359,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "X_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "X_E"
+        }
+      ],
+      "start": 24.18,
+      "startOffset": 354,
+      "word": "їхніх"
+    },
+    {
+      "alignedWord": "родин",
+      "case": "success",
+      "end": 25.05,
+      "endOffset": 365,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "R_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "N_E"
+        }
+      ],
+      "start": 24.57,
+      "startOffset": 360,
+      "word": "родин"
+    },
+    {
+      "alignedWord": "і",
+      "case": "success",
+      "end": 25.71,
+      "endOffset": 367,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "IY1_S"
+        }
+      ],
+      "start": 25.59,
+      "startOffset": 366,
+      "word": "і"
+    },
+    {
+      "alignedWord": "всім",
+      "case": "success",
+      "end": 26.04,
+      "endOffset": 372,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "WH_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "SJ_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_E"
+        }
+      ],
+      "start": 25.71,
+      "startOffset": 368,
+      "word": "всім"
+    },
+    {
+      "alignedWord": "хто",
+      "case": "success",
+      "end": 26.25,
+      "endOffset": 377,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "X_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 26.04,
+      "startOffset": 374,
+      "word": "хто"
+    },
+    {
+      "alignedWord": "потрапив",
+      "case": "success",
+      "end": 26.64,
+      "endOffset": 386,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "WH_E"
+        }
+      ],
+      "start": 26.25,
+      "startOffset": 378,
+      "word": "потрапив"
+    },
+    {
+      "alignedWord": "до",
+      "case": "success",
+      "end": 26.73,
+      "endOffset": 389,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 26.64,
+      "startOffset": 387,
+      "word": "до"
+    },
+    {
+      "alignedWord": "чорного",
+      "case": "success",
+      "end": 27.12,
+      "endOffset": 397,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "CH_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 26.73,
+      "startOffset": 390,
+      "word": "чорного"
+    },
+    {
+      "alignedWord": "списку",
+      "case": "success",
+      "end": 27.57,
+      "endOffset": 404,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_E"
+        }
+      ],
+      "start": 27.12,
+      "startOffset": 398,
+      "word": "списку"
+    },
+    {
+      "alignedWord": "загрожує",
+      "case": "success",
+      "end": 27.990000000000002,
+      "endOffset": 413,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "ZH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 27.57,
+      "startOffset": 405,
+      "word": "загрожує"
+    },
+    {
+      "alignedWord": "навіть",
+      "case": "success",
+      "end": 28.2,
+      "endOffset": 420,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V2_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 27.99,
+      "startOffset": 414,
+      "word": "навіть"
+    },
+    {
+      "alignedWord": "страта",
+      "case": "success",
+      "end": 28.77,
+      "endOffset": 427,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.18,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 28.2,
+      "startOffset": 421,
+      "word": "страта"
+    },
+    {
+      "alignedWord": "хоча",
+      "case": "success",
+      "end": 29.16,
+      "endOffset": 433,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "X_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 28.86,
+      "startOffset": 429,
+      "word": "Хоча"
+    },
+    {
+      "alignedWord": "раніше",
+      "case": "success",
+      "end": 29.580000000000002,
+      "endOffset": 440,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "R_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "SH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 29.16,
+      "startOffset": 434,
+      "word": "раніше"
+    },
+    {
+      "alignedWord": "в",
+      "case": "success",
+      "end": 29.639999999999997,
+      "endOffset": 442,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "V_S"
+        }
+      ],
+      "start": 29.58,
+      "startOffset": 441,
+      "word": "в"
+    },
+    {
+      "alignedWord": "талібані",
+      "case": "success",
+      "end": 30.060000000000002,
+      "endOffset": 451,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "B_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 29.64,
+      "startOffset": 443,
+      "word": "Талібані"
+    },
+    {
+      "alignedWord": "пообіцяли",
+      "case": "success",
+      "end": 30.63,
+      "endOffset": 461,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "B2_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 30.06,
+      "startOffset": 452,
+      "word": "пообіцяли"
+    },
+    {
+      "alignedWord": "що",
+      "case": "success",
+      "end": 30.81,
+      "endOffset": 465,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "SH_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 30.63,
+      "startOffset": 463,
+      "word": "що"
+    },
+    {
+      "alignedWord": "після",
+      "case": "success",
+      "end": 31.259999999999998,
+      "endOffset": 471,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "P2_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 30.81,
+      "startOffset": 466,
+      "word": "після"
+    },
+    {
+      "alignedWord": "захоплення",
+      "case": "success",
+      "end": 31.770000000000003,
+      "endOffset": 482,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "X_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ3_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 31.26,
+      "startOffset": 472,
+      "word": "захоплення"
+    },
+    {
+      "alignedWord": "влади",
+      "case": "success",
+      "end": 32.16,
+      "endOffset": 488,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "WH_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 31.77,
+      "startOffset": 483,
+      "word": "влади"
+    },
+    {
+      "alignedWord": "помсти",
+      "case": "success",
+      "end": 32.910000000000004,
+      "endOffset": 495,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 32.46,
+      "startOffset": 489,
+      "word": "помсти"
+    },
+    {
+      "alignedWord": "не",
+      "case": "success",
+      "end": 33.029999999999994,
+      "endOffset": 498,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH_E"
+        }
+      ],
+      "start": 32.91,
+      "startOffset": 496,
+      "word": "не"
+    },
+    {
+      "alignedWord": "буде",
+      "case": "success",
+      "end": 33.39,
+      "endOffset": 503,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "B_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "UH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 33.03,
+      "startOffset": 499,
+      "word": "буде"
+    },
+    {
+      "alignedWord": "тим",
+      "case": "success",
+      "end": 33.87,
+      "endOffset": 508,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_E"
+        }
+      ],
+      "start": 33.66,
+      "startOffset": 505,
+      "word": "Тим"
+    },
+    {
+      "alignedWord": "часом",
+      "case": "success",
+      "end": 34.23,
+      "endOffset": 514,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "CH_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_E"
+        }
+      ],
+      "start": 33.87,
+      "startOffset": 509,
+      "word": "часом"
+    },
+    {
+      "alignedWord": "в",
+      "case": "success",
+      "end": 34.29,
+      "endOffset": 516,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "V_S"
+        }
+      ],
+      "start": 34.23,
+      "startOffset": 515,
+      "word": "в"
+    },
+    {
+      "alignedWord": "аеропорту",
+      "case": "success",
+      "end": 34.71,
+      "endOffset": 526,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "AA_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_E"
+        }
+      ],
+      "start": 34.29,
+      "startOffset": 517,
+      "word": "аеропорту"
+    },
+    {
+      "alignedWord": "кабула",
+      "case": "success",
+      "end": 35.13,
+      "endOffset": 533,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "K_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "B_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "UH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 34.71,
+      "startOffset": 527,
+      "word": "Кабула"
+    },
+    {
+      "alignedWord": "іще",
+      "case": "success",
+      "end": 35.400000000000006,
+      "endOffset": 537,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "IY1_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "SH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 35.13,
+      "startOffset": 534,
+      "word": "іще"
+    },
+    {
+      "alignedWord": "близько",
+      "case": "success",
+      "end": 35.73,
+      "endOffset": 545,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "B_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "ZJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 35.4,
+      "startOffset": 538,
+      "word": "близько"
+    },
+    {
+      "alignedWord": "<unk>",
+      "case": "success",
+      "end": 36.09,
+      "endOffset": 547,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "SPN_S"
+        }
+      ],
+      "start": 36.06,
+      "startOffset": 546,
+      "word": "6"
+    },
+    {
+      "alignedWord": "тисяч",
+      "case": "success",
+      "end": 36.480000000000004,
+      "endOffset": 553,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "SJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "CH_E"
+        }
+      ],
+      "start": 36.09,
+      "startOffset": 548,
+      "word": "тисяч"
+    },
+    {
+      "alignedWord": "людей",
+      "case": "success",
+      "end": 36.75,
+      "endOffset": 559,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "LJ_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_E"
+        }
+      ],
+      "start": 36.48,
+      "startOffset": 554,
+      "word": "людей"
+    },
+    {
+      "alignedWord": "чекають",
+      "case": "success",
+      "end": 37.08,
+      "endOffset": 567,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "CH_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 36.75,
+      "startOffset": 560,
+      "word": "чекають"
+    },
+    {
+      "alignedWord": "на",
+      "case": "success",
+      "end": 37.199999999999996,
+      "endOffset": 570,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 37.08,
+      "startOffset": 568,
+      "word": "на"
+    },
+    {
+      "alignedWord": "евакуацію",
+      "case": "success",
+      "end": 37.92,
+      "endOffset": 580,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "EIH_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_E"
+        }
+      ],
+      "start": 37.2,
+      "startOffset": 571,
+      "word": "евакуацію"
+    },
+    {
+      "alignedWord": "серед",
+      "case": "success",
+      "end": 38.489999999999995,
+      "endOffset": 587,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_E"
+        }
+      ],
+      "start": 38.19,
+      "startOffset": 582,
+      "word": "Серед"
+    },
+    {
+      "alignedWord": "них",
+      "case": "success",
+      "end": 38.7,
+      "endOffset": 591,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "X_E"
+        }
+      ],
+      "start": 38.49,
+      "startOffset": 588,
+      "word": "них"
+    },
+    {
+      "alignedWord": "є",
+      "case": "success",
+      "end": 38.85,
+      "endOffset": 593,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "EH1_E"
+        }
+      ],
+      "start": 38.7,
+      "startOffset": 592,
+      "word": "є"
+    },
+    {
+      "alignedWord": "афганці",
+      "case": "success",
+      "end": 39.300000000000004,
+      "endOffset": 601,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "AA_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "F_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 38.85,
+      "startOffset": 594,
+      "word": "афганці"
+    },
+    {
+      "alignedWord": "яких",
+      "case": "success",
+      "end": 39.54,
+      "endOffset": 607,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "X_E"
+        }
+      ],
+      "start": 39.3,
+      "startOffset": 603,
+      "word": "яких"
+    },
+    {
+      "alignedWord": "може",
+      "case": "success",
+      "end": 39.78,
+      "endOffset": 612,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "M_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "ZH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 39.54,
+      "startOffset": 608,
+      "word": "може"
+    },
+    {
+      "alignedWord": "переслідувати",
+      "case": "success",
+      "end": 40.32,
+      "endOffset": 626,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 39.78,
+      "startOffset": 613,
+      "word": "переслідувати"
+    },
+    {
+      "alignedWord": "нова",
+      "case": "success",
+      "end": 40.5,
+      "endOffset": 631,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 40.32,
+      "startOffset": 627,
+      "word": "нова"
+    },
+    {
+      "alignedWord": "влада",
+      "case": "success",
+      "end": 40.89,
+      "endOffset": 637,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "WH_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 40.5,
+      "startOffset": 632,
+      "word": "влада"
+    },
+    {
+      "alignedWord": "і",
+      "case": "success",
+      "end": 41.22,
+      "endOffset": 639,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "IY1_S"
+        }
+      ],
+      "start": 41.19,
+      "startOffset": 638,
+      "word": "і"
+    },
+    {
+      "alignedWord": "які",
+      "case": "success",
+      "end": 41.67,
+      "endOffset": 643,
+      "phones": [
+        {
+          "duration": 0.15,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K2_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 41.28,
+      "startOffset": 640,
+      "word": "які"
+    },
+    {
+      "alignedWord": "хочуть",
+      "case": "success",
+      "end": 42.06,
+      "endOffset": 650,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "X_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 41.67,
+      "startOffset": 644,
+      "word": "хочуть"
+    },
+    {
+      "alignedWord": "отримати",
+      "case": "success",
+      "end": 42.78,
+      "endOffset": 659,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "AO_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.24,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 42.06,
+      "startOffset": 651,
+      "word": "отримати"
+    },
+    {
+      "alignedWord": "спеціальні",
+      "case": "success",
+      "end": 43.410000000000004,
+      "endOffset": 670,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 42.81,
+      "startOffset": 660,
+      "word": "спеціальні"
+    },
+    {
+      "alignedWord": "міграційні",
+      "case": "success",
+      "end": 44.01,
+      "endOffset": 681,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "M2_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 43.41,
+      "startOffset": 671,
+      "word": "міграційні"
+    },
+    {
+      "alignedWord": "візи",
+      "case": "success",
+      "end": 44.37,
+      "endOffset": 686,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "V2_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "Z_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 44.01,
+      "startOffset": 682,
+      "word": "візи"
+    },
+    {
+      "alignedWord": "лісові",
+      "case": "success",
+      "end": 47.25,
+      "endOffset": 694,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "LJ_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V2_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 46.86,
+      "startOffset": 688,
+      "word": "Лісові"
+    },
+    {
+      "alignedWord": "пожежі",
+      "case": "success",
+      "end": 47.79,
+      "endOffset": 701,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "ZH_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "ZH2_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 47.25,
+      "startOffset": 695,
+      "word": "пожежі"
+    },
+    {
+      "alignedWord": "охопили",
+      "case": "success",
+      "end": 48.269999999999996,
+      "endOffset": 709,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "AO_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "X_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 47.79,
+      "startOffset": 702,
+      "word": "охопили"
+    },
+    {
+      "alignedWord": "південь",
+      "case": "success",
+      "end": 48.660000000000004,
+      "endOffset": 717,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P2_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "WH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "NJ_E"
+        }
+      ],
+      "start": 48.27,
+      "startOffset": 710,
+      "word": "південь"
+    },
+    {
+      "alignedWord": "португалії",
+      "case": "success",
+      "end": 49.5,
+      "endOffset": 728,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 48.66,
+      "startOffset": 718,
+      "word": "Португалії"
+    },
+    {
+      "alignedWord": "найдужче",
+      "case": "success",
+      "end": 50.1,
+      "endOffset": 738,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "UH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "ZH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 49.53,
+      "startOffset": 730,
+      "word": "Найдужче"
+    },
+    {
+      "alignedWord": "дісталося",
+      "case": "success",
+      "end": 50.67,
+      "endOffset": 748,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "DJ_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "SJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 50.1,
+      "startOffset": 739,
+      "word": "дісталося"
+    },
+    {
+      "alignedWord": "району",
+      "case": "success",
+      "end": 51.27,
+      "endOffset": 755,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "R_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.21,
+          "phone": "UH_E"
+        }
+      ],
+      "start": 50.67,
+      "startOffset": 749,
+      "word": "району"
+    },
+    {
+      "alignedWord": "алгарве",
+      "case": "success",
+      "end": 51.96,
+      "endOffset": 763,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "AA_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 51.33,
+      "startOffset": 756,
+      "word": "Алгарве"
+    },
+    {
+      "alignedWord": "полум'я",
+      "case": "success",
+      "end": 52.53,
+      "endOffset": 772,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 52.08,
+      "startOffset": 765,
+      "word": "Полум'я"
+    },
+    {
+      "alignedWord": "вже",
+      "case": "success",
+      "end": 52.74,
+      "endOffset": 776,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "WH_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "ZH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 52.53,
+      "startOffset": 773,
+      "word": "вже"
+    },
+    {
+      "alignedWord": "випалило",
+      "case": "success",
+      "end": 53.160000000000004,
+      "endOffset": 785,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "V_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 52.74,
+      "startOffset": 777,
+      "word": "випалило"
+    },
+    {
+      "alignedWord": "близько",
+      "case": "success",
+      "end": 53.519999999999996,
+      "endOffset": 793,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "B_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "ZJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 53.16,
+      "startOffset": 786,
+      "word": "близько"
+    },
+    {
+      "alignedWord": "<unk>",
+      "case": "success",
+      "end": 53.88,
+      "endOffset": 795,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "SPN_S"
+        }
+      ],
+      "start": 53.85,
+      "startOffset": 794,
+      "word": "9"
+    },
+    {
+      "alignedWord": "тисяч",
+      "case": "success",
+      "end": 54.21,
+      "endOffset": 801,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "SJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "CH_E"
+        }
+      ],
+      "start": 53.88,
+      "startOffset": 796,
+      "word": "тисяч"
+    },
+    {
+      "alignedWord": "гектарів",
+      "case": "success",
+      "end": 54.6,
+      "endOffset": 810,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "H_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "WH_E"
+        }
+      ],
+      "start": 54.21,
+      "startOffset": 802,
+      "word": "гектарів"
+    },
+    {
+      "alignedWord": "території",
+      "case": "success",
+      "end": 55.17,
+      "endOffset": 820,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 54.6,
+      "startOffset": 811,
+      "word": "території"
+    },
+    {
+      "alignedWord": "й",
+      "case": "success",
+      "end": 55.559999999999995,
+      "endOffset": 822,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "Y_S"
+        }
+      ],
+      "start": 55.44,
+      "startOffset": 821,
+      "word": "й"
+    },
+    {
+      "alignedWord": "дісталося",
+      "case": "success",
+      "end": 56.07,
+      "endOffset": 832,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "DJ_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "SJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 55.56,
+      "startOffset": 823,
+      "word": "дісталося"
+    },
+    {
+      "alignedWord": "національного",
+      "case": "success",
+      "end": 56.55,
+      "endOffset": 846,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 56.07,
+      "startOffset": 833,
+      "word": "національного"
+    },
+    {
+      "alignedWord": "заповідника",
+      "case": "success",
+      "end": 57.269999999999996,
+      "endOffset": 858,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AOU_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V2_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 56.55,
+      "startOffset": 847,
+      "word": "заповідника"
+    },
+    {
+      "alignedWord": "де",
+      "case": "success",
+      "end": 57.510000000000005,
+      "endOffset": 862,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "EH_E"
+        }
+      ],
+      "start": 57.27,
+      "startOffset": 860,
+      "word": "де"
+    },
+    {
+      "alignedWord": "мешкають",
+      "case": "success",
+      "end": 58.05,
+      "endOffset": 871,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "M_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "SH_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 57.54,
+      "startOffset": 863,
+      "word": "мешкають"
+    },
+    {
+      "alignedWord": "олені",
+      "case": "success",
+      "end": 58.559999999999995,
+      "endOffset": 877,
+      "phones": [
+        {
+          "duration": 0.15,
+          "phone": "AO1_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 58.08,
+      "startOffset": 872,
+      "word": "олені"
+    },
+    {
+      "alignedWord": "до",
+      "case": "success",
+      "end": 59.07,
+      "endOffset": 881,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 58.89,
+      "startOffset": 879,
+      "word": "До"
+    },
+    {
+      "alignedWord": "гасіння",
+      "case": "success",
+      "end": 59.5,
+      "endOffset": 889,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "H_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "SJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "NJ3_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 59.08,
+      "startOffset": 882,
+      "word": "гасіння"
+    },
+    {
+      "alignedWord": "займань",
+      "case": "success",
+      "end": 59.89,
+      "endOffset": 897,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_E"
+        }
+      ],
+      "start": 59.5,
+      "startOffset": 890,
+      "word": "займань"
+    },
+    {
+      "alignedWord": "залучили",
+      "case": "success",
+      "end": 60.31,
+      "endOffset": 906,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 59.89,
+      "startOffset": 898,
+      "word": "залучили"
+    },
+    {
+      "alignedWord": "близько",
+      "case": "success",
+      "end": 60.67,
+      "endOffset": 914,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "B_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "ZJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_E"
+        }
+      ],
+      "start": 60.31,
+      "startOffset": 907,
+      "word": "близько"
+    },
+    {
+      "alignedWord": "<unk>",
+      "case": "success",
+      "end": 60.7,
+      "endOffset": 916,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "SPN_S"
+        }
+      ],
+      "start": 60.67,
+      "startOffset": 915,
+      "word": "6"
+    },
+    {
+      "alignedWord": "сотень",
+      "case": "success",
+      "end": 61.480000000000004,
+      "endOffset": 923,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_E"
+        }
+      ],
+      "start": 61.09,
+      "startOffset": 917,
+      "word": "сотень"
+    },
+    {
+      "alignedWord": "надзвичайників",
+      "case": "success",
+      "end": 62.23,
+      "endOffset": 938,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "DZ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K2_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "WH_E"
+        }
+      ],
+      "start": 61.48,
+      "startOffset": 924,
+      "word": "надзвичайників"
+    },
+    {
+      "alignedWord": "понад",
+      "case": "success",
+      "end": 62.53,
+      "endOffset": 945,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "D_E"
+        }
+      ],
+      "start": 62.230000000000004,
+      "startOffset": 940,
+      "word": "понад"
+    },
+    {
+      "alignedWord": "дві",
+      "case": "success",
+      "end": 62.83,
+      "endOffset": 949,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "D_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "V2_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 62.53,
+      "startOffset": 946,
+      "word": "дві"
+    },
+    {
+      "alignedWord": "сотні",
+      "case": "success",
+      "end": 63.16,
+      "endOffset": 955,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AOU_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "TJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY1_E"
+        }
+      ],
+      "start": 62.83,
+      "startOffset": 950,
+      "word": "сотні"
+    },
+    {
+      "alignedWord": "одиниць",
+      "case": "success",
+      "end": 63.489999999999995,
+      "endOffset": 963,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "AO_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_E"
+        }
+      ],
+      "start": 63.16,
+      "startOffset": 956,
+      "word": "одиниць"
+    },
+    {
+      "alignedWord": "техніки",
+      "case": "success",
+      "end": 64.06,
+      "endOffset": 971,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "X_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 63.49,
+      "startOffset": 964,
+      "word": "техніки"
+    },
+    {
+      "alignedWord": "зокрема",
+      "case": "success",
+      "end": 64.63,
+      "endOffset": 980,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 64.27,
+      "startOffset": 973,
+      "word": "Зокрема"
+    },
+    {
+      "alignedWord": "і",
+      "case": "success",
+      "end": 64.69,
+      "endOffset": 983,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "IY1_S"
+        }
+      ],
+      "start": 64.63,
+      "startOffset": 982,
+      "word": "і"
+    },
+    {
+      "alignedWord": "літаки",
+      "case": "success",
+      "end": 65.11,
+      "endOffset": 990,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "LJ_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.18,
+          "phone": "IH1_E"
+        }
+      ],
+      "start": 64.69,
+      "startOffset": 984,
+      "word": "літаки"
+    },
+    {
+      "alignedWord": "однак",
+      "case": "success",
+      "end": 65.67999999999999,
+      "endOffset": 997,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "AO_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_E"
+        }
+      ],
+      "start": 65.35,
+      "startOffset": 992,
+      "word": "Однак"
+    },
+    {
+      "alignedWord": "локалізувати",
+      "case": "success",
+      "end": 66.28,
+      "endOffset": 1010,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "L_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "Z_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "V_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 65.68,
+      "startOffset": 998,
+      "word": "локалізувати"
+    },
+    {
+      "alignedWord": "займання",
+      "case": "success",
+      "end": 66.7,
+      "endOffset": 1019,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "NJ3_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 66.28,
+      "startOffset": 1011,
+      "word": "займання"
+    },
+    {
+      "alignedWord": "не",
+      "case": "success",
+      "end": 66.85000000000001,
+      "endOffset": 1022,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH_E"
+        }
+      ],
+      "start": 66.7,
+      "startOffset": 1020,
+      "word": "не"
+    },
+    {
+      "alignedWord": "вдається",
+      "case": "success",
+      "end": 67.3,
+      "endOffset": 1031,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "WH_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ3_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 66.85,
+      "startOffset": 1023,
+      "word": "вдається"
+    },
+    {
+      "alignedWord": "через",
+      "case": "success",
+      "end": 67.63,
+      "endOffset": 1037,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "CH_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "Z_E"
+        }
+      ],
+      "start": 67.3,
+      "startOffset": 1032,
+      "word": "через"
+    },
+    {
+      "alignedWord": "сильний",
+      "case": "success",
+      "end": 67.96,
+      "endOffset": 1045,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_E"
+        }
+      ],
+      "start": 67.63,
+      "startOffset": 1038,
+      "word": "сильний"
+    },
+    {
+      "alignedWord": "вітер",
+      "case": "success",
+      "end": 68.23,
+      "endOffset": 1051,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "V2_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_E"
+        }
+      ],
+      "start": 67.96000000000001,
+      "startOffset": 1046,
+      "word": "вітер"
+    },
+    {
+      "alignedWord": "та",
+      "case": "success",
+      "end": 68.32000000000001,
+      "endOffset": 1054,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 68.23,
+      "startOffset": 1052,
+      "word": "та"
+    },
+    {
+      "alignedWord": "спеку",
+      "case": "success",
+      "end": 69.19,
+      "endOffset": 1060,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.45,
+          "phone": "UH_E"
+        }
+      ],
+      "start": 68.32,
+      "startOffset": 1055,
+      "word": "спеку"
+    },
+    {
+      "alignedWord": "гаряче",
+      "case": "success",
+      "end": 69.58,
+      "endOffset": 1068,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "H_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "CH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_E"
+        }
+      ],
+      "start": 69.25,
+      "startOffset": 1062,
+      "word": "Гаряче"
+    },
+    {
+      "alignedWord": "повітря",
+      "case": "success",
+      "end": 69.94,
+      "endOffset": 1076,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AOU_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "V2_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 69.58,
+      "startOffset": 1069,
+      "word": "повітря"
+    },
+    {
+      "alignedWord": "як",
+      "case": "success",
+      "end": 70.03,
+      "endOffset": 1080,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "K_E"
+        }
+      ],
+      "start": 69.94,
+      "startOffset": 1078,
+      "word": "як"
+    },
+    {
+      "alignedWord": "кажуть",
+      "case": "success",
+      "end": 70.27,
+      "endOffset": 1087,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "K_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "ZH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 70.03,
+      "startOffset": 1081,
+      "word": "кажуть"
+    },
+    {
+      "alignedWord": "синоптики",
+      "case": "success",
+      "end": 70.78,
+      "endOffset": 1097,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "S_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 70.27,
+      "startOffset": 1088,
+      "word": "синоптики"
+    },
+    {
+      "alignedWord": "принесло",
+      "case": "success",
+      "end": 71.5,
+      "endOffset": 1107,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "L_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AO1_E"
+        }
+      ],
+      "start": 70.99,
+      "startOffset": 1099,
+      "word": "принесло"
+    },
+    {
+      "alignedWord": "з",
+      "case": "success",
+      "end": 71.62,
+      "endOffset": 1109,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "Z_S"
+        }
+      ],
+      "start": 71.5,
+      "startOffset": 1108,
+      "word": "з"
+    },
+    {
+      "alignedWord": "африки",
+      "case": "success",
+      "end": 72.13000000000001,
+      "endOffset": 1116,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "AA1_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "F_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 71.62,
+      "startOffset": 1110,
+      "word": "Африки"
+    },
+    {
+      "alignedWord": "нині",
+      "case": "success",
+      "end": 72.46,
+      "endOffset": 1122,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "N_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 72.16,
+      "startOffset": 1118,
+      "word": "Нині"
+    },
+    {
+      "alignedWord": "окрім",
+      "case": "success",
+      "end": 72.7,
+      "endOffset": 1128,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "AOU_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "RJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_E"
+        }
+      ],
+      "start": 72.46000000000001,
+      "startOffset": 1123,
+      "word": "окрім"
+    },
+    {
+      "alignedWord": "португалії",
+      "case": "success",
+      "end": 73.33,
+      "endOffset": 1139,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "P_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AO_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "H_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 72.7,
+      "startOffset": 1129,
+      "word": "Португалії"
+    },
+    {
+      "alignedWord": "осередки",
+      "case": "success",
+      "end": 73.78,
+      "endOffset": 1148,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "AO_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "D_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 73.33,
+      "startOffset": 1140,
+      "word": "осередки"
+    },
+    {
+      "alignedWord": "займань",
+      "case": "success",
+      "end": 74.11,
+      "endOffset": 1156,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Z_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "M_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_E"
+        }
+      ],
+      "start": 73.78,
+      "startOffset": 1149,
+      "word": "займань"
+    },
+    {
+      "alignedWord": "фіксують",
+      "case": "success",
+      "end": 74.59,
+      "endOffset": 1165,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "F2_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "K_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "UH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "UH_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "TJ_E"
+        }
+      ],
+      "start": 74.11,
+      "startOffset": 1157,
+      "word": "фіксують"
+    },
+    {
+      "alignedWord": "і",
+      "case": "success",
+      "end": 74.92,
+      "endOffset": 1167,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "IY1_S"
+        }
+      ],
+      "start": 74.83,
+      "startOffset": 1166,
+      "word": "і"
+    },
+    {
+      "alignedWord": "в",
+      "case": "success",
+      "end": 75.01,
+      "endOffset": 1169,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "V_S"
+        }
+      ],
+      "start": 74.92,
+      "startOffset": 1168,
+      "word": "в"
+    },
+    {
+      "alignedWord": "інших",
+      "case": "success",
+      "end": 75.25,
+      "endOffset": 1175,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "IY_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "SH_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IH1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "X_E"
+        }
+      ],
+      "start": 75.01,
+      "startOffset": 1170,
+      "word": "інших"
+    },
+    {
+      "alignedWord": "країнах",
+      "case": "success",
+      "end": 75.61,
+      "endOffset": 1183,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "K_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY1_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "N_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "X_E"
+        }
+      ],
+      "start": 75.25,
+      "startOffset": 1176,
+      "word": "країнах"
+    },
+    {
+      "alignedWord": "європи",
+      "case": "success",
+      "end": 76.03,
+      "endOffset": 1190,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "EIH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "WH_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AO1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IHE_E"
+        }
+      ],
+      "start": 75.61,
+      "startOffset": 1184,
+      "word": "Європи"
+    },
+    {
+      "alignedWord": "як",
+      "case": "success",
+      "end": 76.18,
+      "endOffset": 1194,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "Y_B"
+        },
+        {
+          "duration": 0.03,
+          "phone": "AA_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "K_E"
+        }
+      ],
+      "start": 76.03,
+      "startOffset": 1192,
+      "word": "як"
+    },
+    {
+      "alignedWord": "от",
+      "case": "success",
+      "end": 76.30000000000001,
+      "endOffset": 1197,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "AO_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_E"
+        }
+      ],
+      "start": 76.18,
+      "startOffset": 1195,
+      "word": "от"
+    },
+    {
+      "alignedWord": "у",
+      "case": "success",
+      "end": 76.33,
+      "endOffset": 1199,
+      "phones": [
+        {
+          "duration": 0.03,
+          "phone": "UH_S"
+        }
+      ],
+      "start": 76.3,
+      "startOffset": 1198,
+      "word": "у"
+    },
+    {
+      "alignedWord": "франції",
+      "case": "success",
+      "end": 76.87,
+      "endOffset": 1207,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "F_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 76.33,
+      "startOffset": 1200,
+      "word": "Франції"
+    },
+    {
+      "alignedWord": "італії",
+      "case": "success",
+      "end": 77.35000000000001,
+      "endOffset": 1215,
+      "phones": [
+        {
+          "duration": 0.09,
+          "phone": "IY_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "T_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "LJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 76.87,
+      "startOffset": 1209,
+      "word": "Італії"
+    },
+    {
+      "alignedWord": "греції",
+      "case": "success",
+      "end": 77.89,
+      "endOffset": 1223,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "H_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "R_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "EH1_I"
+        },
+        {
+          "duration": 0.09,
+          "phone": "TSJ_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.15,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 77.35,
+      "startOffset": 1217,
+      "word": "Греції"
+    },
+    {
+      "alignedWord": "та",
+      "case": "success",
+      "end": 78.31,
+      "endOffset": 1226,
+      "phones": [
+        {
+          "duration": 0.12,
+          "phone": "T_B"
+        },
+        {
+          "duration": 0.06,
+          "phone": "AA_E"
+        }
+      ],
+      "start": 78.13,
+      "startOffset": 1224,
+      "word": "та"
+    },
+    {
+      "alignedWord": "іспанії",
+      "case": "success",
+      "end": 78.88,
+      "endOffset": 1234,
+      "phones": [
+        {
+          "duration": 0.06,
+          "phone": "IY_B"
+        },
+        {
+          "duration": 0.09,
+          "phone": "S_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "P_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "AA1_I"
+        },
+        {
+          "duration": 0.06,
+          "phone": "NJ_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "IY_I"
+        },
+        {
+          "duration": 0.03,
+          "phone": "Y_I"
+        },
+        {
+          "duration": 0.12,
+          "phone": "IY_E"
+        }
+      ],
+      "start": 78.31,
+      "startOffset": 1227,
+      "word": "Іспанії"
+    }
+  ]
+}
