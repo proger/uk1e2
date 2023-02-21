@@ -14,6 +14,9 @@ ytable1.jsonl: youtube1.tsv
 uk1e2.jsonl: uk1e2.csv
 	python -m csv2jsonl $< | python -m add_urls > $@
 
+news/text.jsonl: news/index.json
+	< $^ jq -r '.rows[][0] | "news-\(.)"' | xargs python -m replay > $@
+
 clean:
 	rm -f uk1e2.db uk1e2.jsonl ytable1.jsonl youtube1.tsv
 
