@@ -24,9 +24,11 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
+  "datasette",
   "pandas",
   "moviepy",
   "requests",
+  "sqlite-utils",
   "websocket",
   "yt-dlp",
 ]
