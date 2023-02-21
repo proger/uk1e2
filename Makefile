@@ -6,6 +6,9 @@ uk1e2.db: uk1e2.jsonl ytable1.jsonl
 utterances.csv: uk1e2.db
 	sqlite-utils rows uk1e2.db utterances --csv > $@
 
+prepare: utterances.csv
+	python -m uk1e2.prep_test_data
+
 youtube1.tsv: youtube1.txt
 	cat $< | awk -v OFS="\t" '/__file__/{file=$$2; spk="Спікер"; next} /^# /{gsub("^# ", ""); spk=$$0; next} /^0[0-9-]+/{gsub("-",":"); ts=$$0; next} /Метадані:/{spk="__meta__"} /^..+$$/{print NR, file, ts, spk, $$0}' \
 	| grep -v __meta__  > $@
