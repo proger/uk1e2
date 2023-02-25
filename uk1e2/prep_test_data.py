@@ -210,25 +210,6 @@ def main():
     corpus.write_scp(os.path.join(result_dir, "scp"))
     corpus.write_labeled_text(os.path.join(result_dir, "text"))
     return
-    ############################
-
-    with open(csv_path) as csv_file:
-        csv_read=csv.reader(csv_file, delimiter=',')
-        for i, line in enumerate(csv_read):
-            if i < 5:
-                print(f" [{i}] {line}", file=sys.stderr)
-    ydl_opts = {
-        'format': 'm4a/bestaudio/best',
-        # ℹ️ See help(yt_dlp.postprocessor) for a list of available Postprocessors and their arguments
-        'postprocessors': [{  # Extract audio using ffmpeg
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'm4a',
-        }]
-    }
-
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        error_code = ydl.download(URLS)
-    
 
 if __name__ == '__main__':
     main()
