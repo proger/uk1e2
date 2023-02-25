@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import csv
 import os
 import requests
@@ -11,23 +12,26 @@ import yt_dlp
 
 from typing import List, Dict, AnyStr, IO, Union, Iterable
 
-
+@dataclass(frozen=True)
 class Segment:
-    def __init__(self, text: str, start: float, end: float, spk: str):
-        self.text = text
-        self.start=start
-        self.end=end
-        self.spk=spk
-        self.location=""
+    text: str
+    start: float
+    end: float
+    spk: str
+    location: str
         
     @staticmethod
-    def from_csv_line_list(line: List[AnyStr]):  # rowid,domain,source,utterance_id,start_time,speaker_id,text,start,end,url
-        # 19188,youtube,o0dlb0_-VeI,107241,00:22:32,<SOME TEXT>,1352,,https://www.youtube.com/embed/o0dlb0_-VeI?start=1352
-        if len(line) < 9:
-            return
-        s = Segment(line[6], line[7], line[8], line[5])
-        s.location = line[9]
+    def from_csv_line_list(line: List[AnyStr]):
+        rowid, domain, source, utterance_id, start_time, speaker_id, text, normalized_text, start, end, url = line
+        s = Segment(normalized_text or text, start, end, speaker_id, url)
         return s
+
+
+def make_name(x):
+    x = x.replace('.', '0')
+    x = x.replace('-', '0')
+    x = x.rjust(11, '0') # pad all names to match length of youtube ids
+    return x
 
 
 class Record:
@@ -80,12 +84,16 @@ class Corpus:
                 head = {s: j for j,s in enumerate(line)}  # TODO: use header information
                 continue
             s = Segment.from_csv_line_list(line)
-            record_url, params = self._parse_record_url(s.location)
+            try:
+                record_url, params = self._parse_record_url(s.location)
+            except ValueError:
+                print('suspicious segment', s)
+                raise
             r = self.record_by_url(record_url, allow_create_new=True)
             result_code = 0
             if r.name == "":  # a new record
                 print(f"Creating a new record by url: {record_url}", file=sys.stderr)
-                r.name = line[2]
+                r.name = make_name(line[2])
                 r.path = os.path.join(self.root, r.name + audio_ext)
                 if "youtu" in record_url:
                     result_code = yt_dl(record_url, self.root)
