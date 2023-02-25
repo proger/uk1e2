@@ -117,7 +117,7 @@ class Corpus:
         with open(path, "wt") as f:
             for label, r in self.lab2record.items():
                 path = r.path
-                command = f"{label} ffmpeg -i \"{path}\" -f wav - |"
+                command = f"{label} ffmpeg -i \"{path}\" -f wav -ac 1 -acodec pcm_s16le -ar 16000 - |"
                 print(command, file=f)
 
 

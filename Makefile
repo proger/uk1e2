@@ -49,6 +49,9 @@ news/align.mk: news/index.json news/text news/webm
 	echo 'all: $$(ALL)' >> $@
 	mkdir -p news/align
 
+news/wav.scp: news/webm
+	find news/webm/ | awk -F/ '{print $$3}' | sed 's,.webm,,g' | awk '{print $$1, "ffmpeg -i news/webm/"$$1".webm -f wav -acodec pcm_s16le -ar 16000 -ac 1 - |"}' > $@
+
 clean:
 	rm -f uk1e2.db uk1e2.jsonl ytable1.jsonl youtube1.tsv
 
