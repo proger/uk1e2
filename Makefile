@@ -1,7 +1,7 @@
 # index for https://wilab.org.ua/uk1e2
-uk1e2.db: uk1e2.jsonl ytable1.jsonl
+uk1e2.db: uk1e2.jsonl ytable2.jsonl
 	sqlite-utils insert $@ utterances uk1e2.jsonl --nl
-	sqlite-utils insert $@ utterances ytable1.jsonl --nl --alter
+	sqlite-utils insert $@ utterances ytable2.jsonl --nl --alter
 	sqlite-utils enable-fts $@ utterances text
 
 # make prepare needs this view
@@ -21,6 +21,10 @@ youtube1.tsv: youtube1.txt
 ytable1.jsonl: youtube1.tsv
 	cat $< | jq -Rrc 'split("\t") | {domain:"youtube", source:.[1], utterance_id: (.[0]|tonumber + 100000), start_time: .[2], speaker_id: .[3], text: .[4]}' \
 		| python -m collapse_repeats | python -m add_urls  > $@
+
+# add normalized youtube utterances
+ytable2.jsonl: ytable1.jsonl youtube_normalized.csv
+	python -m zip_jsonl_csv $^
 
 # convert csv from SaturdayTeam to jsonl with mp4 urls
 uk1e2.jsonl: uk1e2.csv uk1e2_normalized.csv
