@@ -23,8 +23,8 @@ ytable1.jsonl: youtube1.tsv
 		| python -m collapse_repeats | python -m add_urls  > $@
 
 # convert csv from SaturdayTeam to jsonl with mp4 urls
-uk1e2.jsonl: uk1e2.csv
-	python -m csv2jsonl $< | python -m add_urls > $@
+uk1e2.jsonl: uk1e2.csv uk1e2_normalized.csv
+	python -m csv2jsonl $^ | python -m add_urls > $@
 
 # jsonl with all news texts from brushlyk
 news/text.jsonl: news/index.json
