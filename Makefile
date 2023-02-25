@@ -24,7 +24,7 @@ ytable1.jsonl: youtube1.tsv
 
 # add normalized youtube utterances
 ytable2.jsonl: ytable1.jsonl youtube_normalized.csv
-	python -m zip_jsonl_csv $^
+	python -m zip_jsonl_csv $^ > $@
 
 # convert csv from SaturdayTeam to jsonl with mp4 urls
 uk1e2.jsonl: uk1e2.csv uk1e2_normalized.csv
