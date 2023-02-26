@@ -88,7 +88,6 @@ class Corpus:
         return url, params
         
     def from_csv(self, lines: Iterable[List[AnyStr]]):
-        audio_ext = ".m4a"
         for i, line in enumerate(lines):
             if i == 0: # ignore header
                 continue
@@ -103,12 +102,16 @@ class Corpus:
             if r.name == "":  # a new record
                 r.name = make_recording_id(source)
                 if "youtu" in record_url:
-                    r.path = self.root / (source + audio_ext)
+                    r.path = self.root / (source + '.m4a')
                     if not r.path.exists():
                         yt_dl(record_url, self.root)
+                    wav = r.path.with_suffix('.wav')
+                    if not wav.exists():
+                        to_wav(r.path, wav)
+                    r.path = wav
                 else:
-                    download(record_url, self.root, r.name, audio_ext)
-                    r.path = self.root / (r.name + audio_ext)
+                    r.path = self.root / (r.name + '.wav')
+                    download(record_url, r.path)
 
                 self.id_to_record[r.name] = r
                 print(f"new record {len(self.id_to_record)} url={record_url} name={r.name}", file=sys.stderr)
@@ -124,15 +127,14 @@ class Corpus:
             r.add_utterance(s)
 
 
-def download(url: str, dest_folder: Path, stem: str, audio_ext=".m4a"):
-    dest_folder.mkdir(exist_ok=True)
+def download(url: str, target_audio_path: Path):
+    target_audio_path.parent.mkdir(exist_ok=True)
 
-    target_audio_path = dest_folder / (stem + audio_ext)
     if target_audio_path.exists():
         return
 
     filename = url.split('/')[-1].replace(" ", "_")  # be careful with file names
-    file_path = dest_folder / filename
+    file_path = target_audio_path.parent / filename
     if not file_path.exists():
         r = requests.get(url, stream=True)
         if r.ok:
@@ -146,7 +148,7 @@ def download(url: str, dest_folder: Path, stem: str, audio_ext=".m4a"):
         else:
             raise ConnectionError("Download failed: status code {}\n{}".format(r.status_code, r.text))
 
-    to_audio(file_path, target_audio_path, clean_video_on=True)
+    to_wav(file_path, target_audio_path)
     if not target_audio_path.exists():
         raise FileNotFoundError("extracting audio did not word")
 
@@ -169,16 +171,10 @@ def yt_dl(url, dir: Path):
         return error_code
 
 
-def to_audio(v: Path, a: Path, clean_video_on=False):
-    cl = ["ffmpeg", "-i", str(v), "-vn", "-acodec", "copy", str(a)]
-    print(f"Converting to audio by command: {' '.join(cl)}", file=sys.stderr)
-    try:
-        output = subprocess.run(cl, capture_output=True)
-        text_output = output.stderr.decode("utf-8")  #.split("\n")
-        if clean_video_on:
-            v.unlink()
-    except:
-        print(f"ERROR converting to audio: {v} --> {a}.\n  Lines:\n    {text_output}", file=sys.stderr)
+def to_wav(v: Path, a: Path):
+    cl = ["ffmpeg", "-i", str(v), "-vn", "-ac", "1", "-acodec", "pcm_s16le", "-ar", "16000", str(a)]
+    print(f"Converting audio by command: {' '.join(cl)}", file=sys.stderr)
+    subprocess.check_call(cl)
 
 
 def main():
