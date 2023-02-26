@@ -37,9 +37,16 @@ def write_spk2utt(spk2utt: Dict[str, Set[str]], datadir: Path):
             print(file=f)
 
 
-def prepare(dataset, datadir, g2p=None):
-    verbalizer = Verbalizer()
+verbalizer = Verbalizer()
 
+def verbalize(sample):
+    utterance_id = sample['id']
+    normalized_text = sample['normalized_text']
+    sample['words'] = verbalizer.forward(normalized_text, utterance_id=utterance_id)
+    return sample
+
+
+def prepare(dataset, datadir, g2p=None):
     datadir.mkdir(exist_ok=True, parents=True)
     (datadir / 'wav').mkdir(exist_ok=True)
 
@@ -57,10 +64,11 @@ def prepare(dataset, datadir, g2p=None):
         if g2p is not None:
             lexicon_txt = stack.enter_context(open(datadir / 'lexicon.txt', 'w'))
 
+        samples = []
+
         for sample in tqdm(dataset):
             utterance_id = sample['id']
-            normalized_text = sample['normalized_text']
-            words = verbalizer.forward(normalized_text, utterance_id=utterance_id)
+            words = sample['words']
             
             if words is None:
                 continue
@@ -75,11 +83,14 @@ def prepare(dataset, datadir, g2p=None):
             wavscp[recording_id] = sample['recording_path']
             segments[utterance_id] = (recording_id, start, end)
 
-            db['utterances'].insert(sample, pk='id')
+            #logger.debug('utt {}', sample)
+            samples.append(sample)
 
             for word in words:
                 if not word in lexicon:
                     lexicon[word] = None
+
+        db['utterances'].insert_all(samples, pk='id')
 
         if g2p is not None:
             for word in lexicon:
@@ -125,4 +136,5 @@ if __name__ == '__main__':
     datadir = args.root / 'local'
     logger.info('writing to {}', datadir)
 
+    dataset = dataset.map(verbalize)
     prepare(dataset, datadir, g2p=g2p)
