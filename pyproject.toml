@@ -28,6 +28,7 @@ dependencies = [
   "pandas",
   "moviepy",
   "requests",
+  "stanza",
   "sqlite-utils",
   "websocket",
   "yt-dlp",

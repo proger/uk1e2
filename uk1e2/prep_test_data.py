@@ -1,16 +1,18 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import csv
 import os
+from pathlib import Path
 import requests
 import subprocess
 import sys
 
-# Python code to convert video to audio
-import moviepy.editor as mp
 import yt_dlp
-# from pytube import YouTube
+from tqdm import tqdm
 
-from typing import List, Dict, AnyStr, IO, Union, Iterable
+from typing import List, Dict, AnyStr, Iterable
+
+from .text import Verbalizer
+
 
 @dataclass(frozen=True)
 class Segment:
@@ -18,27 +20,25 @@ class Segment:
     start: float
     end: float
     spk: str
-    location: str
         
-    @staticmethod
-    def from_csv_line_list(line: List[AnyStr]):
-        rowid, domain, source, utterance_id, start_time, speaker_id, text, normalized_text, start, end, url = line
-        s = Segment(normalized_text or text, start, end, speaker_id, url)
-        return s
+    def make_segment_id(self, recording_id):
+        s, e = self.start, self.end
+        return f'{recording_id}-{int(s*100):07d}-{int(e*100):07d}'
 
 
-def make_name(x):
+
+def make_recording_id(x):
     x = x.replace('.', '0')
-    x = x.replace('-', '0')
+    x = x.replace('-', '0') # dashes confuse kaldi when segments or speakers are used
     x = x.rjust(11, '0') # pad all names to match length of youtube ids
     return x
 
 
+@dataclass
 class Record:
-    def __init__(self, name="", path=""):
-        self.name = name
-        self.path = path
-        self.segments: List[Segment] = []
+    name: str = ''
+    path: str = ''
+    segments: List[Segment] = field(default_factory=list)
         
     def add_segment(self, s: Segment):
         self.segments.append(s)
@@ -51,60 +51,74 @@ class Record:
         if not allow_multiline:
             t = t.replace("\n", " ")
         return t
+    
+    def compute_duration(self):
+        cmd = "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1".split()
+        return subprocess.check_output(cmd + [self.path])
+
 
 
 class Corpus:
-    def __init__(self, root=""):
+    def __init__(self, root: Path):
         self.root = root
         self.records: List[Record] = []
         self.url2record: Dict[str, Record] = {}
-        self.lab2record: Dict[str, Record] = {}
+        self.id_to_record: Dict[str, Record] = {}
         
     def add_record(self, r: Record):
         self.records.append(r)
     
-    def record_by_url(self, url:str, allow_create_new=True):
+    def record_by_url(self, url: str, allow_create_new=True):
         r = self.url2record.get(url, Record() if allow_create_new else None)
         if r is not None and allow_create_new:
             self.url2record[url] = r
         return r
     
     @staticmethod
-    def _parse_record_url(segment_url: str):
+    def _parse_segment_url(segment_url: str):
         url, params = segment_url.split("?", 1)
         return url, params
         
-    # @staticmethod
-    def update_by_csv_reader(self, lines: Iterable[List[AnyStr]], max_items=-1, ignore_errors=True):
-        # rowid,domain,source,utterance_id,start_time,speaker_id,text,start,end,url
-        head={}
+    def read_csv(self, lines: Iterable[List[AnyStr]], max_items=-1, ignore_errors=True):
         audio_ext = ".m4a"
         for i, line in enumerate(lines):
-            if i==0:
-                head = {s: j for j,s in enumerate(line)}  # TODO: use header information
+            if i == 0: # ignore header
                 continue
-            s = Segment.from_csv_line_list(line)
+
+            rowid, domain, source, utterance_id, start_time, \
+                speaker_id, text, normalized_text, start, end, segment_url = line
+
             try:
-                record_url, params = self._parse_record_url(s.location)
+                record_url, params = self._parse_segment_url(segment_url)
             except ValueError:
                 print('suspicious segment', s)
                 raise
+
             r = self.record_by_url(record_url, allow_create_new=True)
+
             result_code = 0
             if r.name == "":  # a new record
                 print(f"Creating a new record by url: {record_url}", file=sys.stderr)
-                r.name = make_name(line[2])
-                r.path = os.path.join(self.root, r.name + audio_ext)
+                r.name = make_recording_id(source)
                 if "youtu" in record_url:
                     result_code = yt_dl(record_url, self.root)
+                    r.path = self.root / (source + audio_ext)
                 else:
                     result_code = download(record_url, self.root, r.name, audio_ext)
+                    r.path = self.root / (r.name + audio_ext)
                 if result_code == 0:
                     # TODO: check the label is unique
-                    self.lab2record[r.name] = r
-                    print(f"Added a new, {len(self.lab2record)}-th, record named: {r.name}", file=sys.stderr)
+                    self.id_to_record[r.name] = r
+                    print(f"Added a new, {len(self.id_to_record)}-th, record named: {r.name}", file=sys.stderr)
+
+            if end == "":
+                end = r.compute_duration() # end is missing for some final utterances: guess from file duration
+
+            # TODO: properly align start/end of utterances
+            s = Segment(normalized_text or text, float(start), float(end), speaker_id)
+
             if result_code == 0:
-                    r.add_segment(s)
+                r.add_segment(s)
             else:
                 print(f"FATAL ERROR: while trying to append record: {record_url} with params: {params}. \nExiting.", file=sys.stderr)
                 if not ignore_errors:
@@ -113,37 +127,41 @@ class Corpus:
                 print(f"Reached maximum items for updating: {i}", file=sys.stderr)
                 break
 
-    def write_labeled_text(self, path: str):
+    def write_text(self, path: str):
+        verbalizer = Verbalizer()
         with open(path, "wt") as f:
-            for label, r in self.lab2record.items():
-                t = r.to_text(allow_multiline=False)
-                print(label + " " + t, file=f)
+            for recording_id, record in tqdm(self.id_to_record.items()):
+                for segment in record.segments:
+                    print(segment.make_segment_id(recording_id), verbalizer.forward(segment.text), file=f)
 
+    def write_segments(self, path: str):
+        with open(path, "wt") as f:
+            for recording_id, record in self.id_to_record.items():
+                for segment in record.segments:
+                    print(segment.make_segment_id(recording_id), recording_id, round(segment.start, 2), round(segment.end, 2), file=f)
 
     def write_scp(self, path: str):
-        # ffmpeg -i file.mkv -ss 20 -to 40 -f wav -
         with open(path, "wt") as f:
-            for label, r in self.lab2record.items():
+            for recording_id, r in self.id_to_record.items():
                 path = r.path
-                command = f"{label} ffmpeg -i \"{path}\" -f wav -ac 1 -acodec pcm_s16le -ar 16000 - |"
+                command = f"{recording_id} ffmpeg -i {path} -f wav -ac 1 -acodec pcm_s16le -ar 16000 - |"
                 print(command, file=f)
 
 
-def download(url: str, dest_folder: str, stem: str, audio_ext=".m4a"):
-    if not os.path.exists(dest_folder):
-        os.makedirs(dest_folder)  # create folder if it does not exist
+def download(url: str, dest_folder: Path, stem: str, audio_ext=".m4a"):
+    dest_folder.mkdir(exist_ok=True)
 
-    target_audio_path = os.path.join(dest_folder, stem + audio_ext)
-    if os.path.isfile(target_audio_path):
+    target_audio_path = dest_folder / (stem + audio_ext)
+    if target_audio_path.exists():
         print(f"Audio - {target_audio_path} - is already prepared.", file=sys.stderr)
         return 0
 
     filename = url.split('/')[-1].replace(" ", "_")  # be careful with file names
-    file_path = os.path.join(dest_folder, filename)
-    if not os.path.isfile(file_path):
+    file_path = dest_folder / filename
+    if not file_path.exists():
         r = requests.get(url, stream=True)
         if r.ok:
-            print("saving to", os.path.abspath(file_path), file=sys.stderr)
+            print("saving to", file_path.absolute(), file=sys.stderr)
             with open(file_path, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=1024 * 1024 * 2):  # 1024 * 8
                     if chunk:
@@ -156,10 +174,10 @@ def download(url: str, dest_folder: str, stem: str, audio_ext=".m4a"):
     else:
         print(f"Video - {file_path} - is already downloaded.", file=sys.stderr)
     to_audio(file_path, target_audio_path, clean_video_on=True)
-    return 0 if os.path.isfile(target_audio_path) else -1
+    return 0 if target_audio_path.exists() else -1
 
 
-def yt_dl(url, dir="data"):  # TODO: where!!!!!!!!!!!!!
+def yt_dl(url, dir: Path):
     ydl_opts = {
         'format': 'm4a/bestaudio/best',
         'outtmpl': os.path.join(dir, "%(id)s.%(ext)s"),  # 'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
@@ -175,49 +193,41 @@ def yt_dl(url, dir="data"):  # TODO: where!!!!!!!!!!!!!
         error_code = ydl.download(urls)
         print(f"Downloaded with code: {error_code}", file=sys.stderr)
         return error_code
-    return -1
 
 
-def to_audio(v: str, a: str, clean_video_on=False):
-    cl = ["ffmpeg", "-i", v, "-vn", "-acodec", "copy", a]
+def to_audio(v: Path, a: Path, clean_video_on=False):
+    cl = ["ffmpeg", "-i", str(v), "-vn", "-acodec", "copy", str(a)]
     print(f"Converting to audio by command: {' '.join(cl)}", file=sys.stderr)
     try:
         output = subprocess.run(cl, capture_output=True)
         text_output = output.stderr.decode("utf-8")  #.split("\n")
         if clean_video_on:
-            os.remove(v)
+            v.unlink()
     except:
         print(f"ERROR converting to audio: {v} --> {a}.\n  Lines:\n    {text_output}", file=sys.stderr)
 
-
-def to_audio2(v: str, a: str):
-    # Insert Local Video File Path 
-    clip = mp.VideoFileClip(v)
-    
-    # Insert Local Audio File Path
-    clip.audio.write_audiofile(a)
 
 def main():
     if len(sys.argv) < 3:
         print(f"Read csv-file, download/covert audio and write necessary info", file=sys.stderr)
         print(f"", file=sys.stderr)
-    csv_path = sys.argv[1] if len(sys.argv) > 1 else "utterances.csv"
-    corpus_dir = sys.argv[2] if len(sys.argv) > 2 else "data/corpus"
-    result_dir = sys.argv[3] if len(sys.argv) > 3 else "data/local"
-    os.makedirs(corpus_dir, exist_ok=True)
+    csv_path = Path(sys.argv[1] if len(sys.argv) > 1 else "utterances.csv")
+    corpus_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "data/corpus")
+    result_dir = Path(sys.argv[3] if len(sys.argv) > 3 else "data/local")
+    corpus_dir.mkdir(parents=True, exist_ok=True)
     
     print(f"Read {csv_path}, download/covert audio to {corpus_dir} and write info to {result_dir}", file=sys.stderr)
     print(f"Downloading media files (and convert them to audio m4a format) to: {corpus_dir}", file=sys.stderr)
     corpus = Corpus(corpus_dir)
     with open(csv_path) as csv_file:
-        csv_read=csv.reader(csv_file, delimiter=',')
-        corpus.update_by_csv_reader(csv_read, max_items=-1)
+        corpus.read_csv(csv.reader(csv_file, delimiter=','), max_items=-1)
     
     print(f"Writing corpus local descriptions to: {result_dir}", file=sys.stderr)
-    os.makedirs(result_dir, exist_ok=True)
-    corpus.write_scp(os.path.join(result_dir, "scp"))
-    corpus.write_labeled_text(os.path.join(result_dir, "text"))
-    return
+    result_dir.mkdir(parents=True, exist_ok=True)
+    corpus.write_scp(result_dir / "scp")
+    corpus.write_segments(result_dir / "segments")
+    corpus.write_text(result_dir / "text")
+
 
 if __name__ == '__main__':
     main()
