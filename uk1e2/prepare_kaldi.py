@@ -2,7 +2,7 @@
 Prepare Hugging Face-compatible audio dataset for training using Kaldi
 """
 
-from collections import defaultdict
+from collections import defaultdict, Counter
 from contextlib import ExitStack
 from pathlib import Path
 from typing import Dict, Set, Tuple
@@ -24,8 +24,8 @@ def write_segments(segments: Dict[str, Tuple[str, float, float]], filename: Path
 
 def write_scp(scp: Dict[str, str], filename: Path):
     with open(filename, 'w') as f:
-        for utterance_id in sorted(scp):
-            print(utterance_id, scp[utterance_id], file=f)
+        for key in sorted(scp):
+            print(key, scp[key], file=f)
 
 
 def write_spk2utt(spk2utt: Dict[str, Set[str]], datadir: Path):
@@ -111,6 +111,7 @@ def prepare(dataset, datadir, g2p=None):
     write_scp(wavscp, datadir / 'wav.scp')
     if segments:
         write_segments(segments, datadir / 'segments')
+    write_scp(Counter(verbalizer.vocabulary.unk), datadir / 'unk.txt')
 
 
 if __name__ == '__main__':
@@ -136,5 +137,5 @@ if __name__ == '__main__':
     datadir = args.root / 'local'
     logger.info('writing to {}', datadir)
 
-    dataset = dataset.map(verbalize)
+    dataset = dataset.map(verbalize, load_from_cache_file=False)
     prepare(dataset, datadir, g2p=g2p)

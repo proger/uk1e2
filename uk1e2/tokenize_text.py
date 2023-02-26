@@ -25,13 +25,17 @@ def strip_accents(s):
     return t
 
 
-def token_to_vocabulary_word(x, *, utterance_id):
-    s = alphabet_filter['cyr'].sub('', x)
-    if x != s:
-        # ignore a non-cyrillic word for now
-        logger.warning('{} word not represented: {}', utterance_id, x)
-        return "<unk>"
-    return x
+class Vocabulary:
+    def __init__(self):
+        self.unk = []
+    
+    def resolve(self, x, *, utterance_id):
+        s = alphabet_filter['cyr'].sub('', x)
+        if x != s:
+            # ignore a non-cyrillic word for now
+            self.unk.append(x)
+            return "<unk>"
+        return x
 
 
 def keep_useful_characters(sentence):
@@ -51,6 +55,7 @@ def keep_useful_characters(sentence):
 class Verbalizer:
     def __init__(self):
         self.nlp = stanza.Pipeline('uk', processors='tokenize,pos')
+        self.vocabulary = Vocabulary()
         
     def forward(self, text, *, utterance_id='sentence'):
         text = ftfy.fix_text(text) # unicode
@@ -59,7 +64,7 @@ class Verbalizer:
         if text is None:
             return None
         else:
-            words = [token_to_vocabulary_word(t, utterance_id=utterance_id) for t in text.split()]
+            words = [self.vocabulary.resolve(t, utterance_id=utterance_id) for t in text.split()]
             
             return words
 
