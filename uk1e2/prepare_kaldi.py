@@ -64,7 +64,7 @@ def prepare(dataset, datadir, g2p=None):
             
             if words is None:
                 continue
-            
+
             sample['kaldi_text'] = text[utterance_id] = ' '.join(words)
             utt2spk[utterance_id] = sample['speaker_id']
             spk2utt[sample['speaker_id']].add(sample['id'])

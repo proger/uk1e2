@@ -11,7 +11,7 @@ import yt_dlp
 
 from typing import List, Dict, AnyStr, Iterable
 
-from .text import Verbalizer
+from .tokenize_text import Verbalizer
 
 
 @dataclass
