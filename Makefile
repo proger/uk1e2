@@ -19,13 +19,18 @@ data/local/wav.scp: local_utterances.jsonl
 data/local/text data/local/spk2utt data/local/utt2spk data/local/segments: data/local/wav.scp
 
 # postprocess youtube txt brushlyk dump to tsv
-youtube1.tsv: youtube1.txt
-	cat $< | awk -v OFS="\t" '/__file__/{file=$$2; spk="Спікер"; next} /^# /{gsub("^# ", ""); spk=$$0; next} /^0[0-9-]+/{gsub("-",":"); ts=$$0; next} /Метадані:/{spk="__meta__"} /^..+$$/{print NR, file, ts, spk, $$0}' \
-	| grep -v __meta__  > $@
+# this file has been edited manually to resolve timing monotonicity
+## youtube1.tsv: youtube1.txt
+## 	cat $^ | awk -v OFS="\t" '/__file__/{file=$$2; spk="Спікер"; next} /^# /{gsub("^# ", ""); spk=$$0; next} /^0[0-9-]+/{gsub("-",":"); ts=$$0; next} /Метадані:/{spk="__meta__"} /^..+$$/{print NR, file, ts, spk, $$0}' \
+## 	| grep -v __meta__  > $@
+
+youtube2.tsv: youtube2.txt
+	cat $^ | awk -v c=20000 -v OFS="\t" '/__file__/{file=$$2; spk="Спікер"; next} /^# /{gsub("^# ", ""); spk=$$0; next} /^0[0-9-]+/{gsub("-",":"); ts=$$0; next} /Метадані:/{spk="__meta__"} /^..+$$/{print c, file, ts, spk, $$0; c+=1}' \
+		| grep -v __meta__  > $@
 
 # postprocess youtube tsv to jsonl with mp4 urls
-ytable1.jsonl: youtube1.tsv
-	cat $< | jq -Rrc 'split("\t") | {domain:"youtube", source:.[1], utterance_id: (.[0]|tonumber + 100000), start_time: .[2], speaker_id: .[3], text: .[4]}' \
+ytable1.jsonl: youtube1.tsv youtube2.tsv
+	cat $^ | jq -Rrc 'split("\t") | {domain:"youtube", source:.[1], utterance_id: (.[0]|tonumber + 100000), start_time: .[2], speaker_id: .[3], text: .[4]}' \
 		| python -m collapse_repeats | python -m add_urls  > $@
 
 # add normalized youtube utterances
