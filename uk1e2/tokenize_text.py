@@ -12,7 +12,7 @@ alphabet_filter = {
     'cyr': re.compile(r'[^ыёэъЫЁЭЪйцукенгшщзхїфивапролджєґячсміiтьбюЙЦУКЕНГШЩЗХЇФИВАПРОЛДЖЄҐЯЧСМІТЬБЮ\' -]'),
     'uk': re.compile(         r'[^йцукенгшщзхїфивапролджєґячсміiтьбюЙЦУКЕНГШЩЗХЇФИВАПРОЛДЖЄҐЯЧСМІТЬБЮ\' -]')
 }
-re_punct = re.compile(r'[\.,!?"«»“”…:;–—―-]+')
+re_punct = re.compile(r'[\.,!?"«»“”…/:;–—―-]+')
 re_whitespace = re.compile(r'[\s-]+')
 re_leading = re.compile(r'^[\'-]+')
 re_trailing = re.compile(r'[\'-]+$')
@@ -25,11 +25,11 @@ def strip_accents(s):
     return t
 
 
-def token_to_vocabulary_word(x):
+def token_to_vocabulary_word(x, *, utterance_id):
     s = alphabet_filter['cyr'].sub('', x)
     if x != s:
         # ignore a non-cyrillic word for now
-        logger.warning('word not represented: {}', x)
+        logger.warning('{} word not represented: {}', utterance_id, x)
         return "<unk>"
     return x
 
@@ -59,7 +59,7 @@ class Verbalizer:
         if text is None:
             return None
         else:
-            words = [token_to_vocabulary_word(t) for t in text.split()]
+            words = [token_to_vocabulary_word(t, utterance_id=utterance_id) for t in text.split()]
             
             return words
 
