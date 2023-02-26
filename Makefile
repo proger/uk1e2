@@ -1,8 +1,9 @@
 # index for https://wilab.org.ua/uk1e2
-uk1e2.db: uk1e2.jsonl ytable2.jsonl
+uk1e2.db: uk1e2.jsonl zipytable1.jsonl zipytable2.jsonl
 	rm -f uk1e2.db
 	sqlite-utils insert $@ utterances uk1e2.jsonl --nl
-	sqlite-utils insert $@ utterances ytable2.jsonl --nl --alter
+	sqlite-utils insert $@ utterances zipytable1.jsonl --nl --alter
+	sqlite-utils insert $@ utterances zipytable2.jsonl --nl --alter
 	sqlite-utils enable-fts $@ utterances text
 
 # make prepare needs this view
@@ -29,12 +30,15 @@ youtube2.tsv: youtube2.txt
 		| grep -v __meta__  > $@
 
 # postprocess youtube tsv to jsonl with mp4 urls
-ytable1.jsonl: youtube1.tsv youtube2.tsv
+ytable%.jsonl: youtube%.tsv
 	cat $^ | jq -Rrc 'split("\t") | {domain:"youtube", source:.[1], utterance_id: (.[0]|tonumber + 100000), start_time: .[2], speaker_id: .[3], text: .[4]}' \
 		| python -m collapse_repeats | python -m add_urls  > $@
 
 # add normalized youtube utterances
-ytable2.jsonl: ytable1.jsonl youtube_normalized.csv
+zipytable1.jsonl: ytable1.jsonl youtube_normalized.csv
+	python -m zip_jsonl_csv $^ > $@
+
+zipytable2.jsonl: ytable2.jsonl youtube2_normalized.csv
 	python -m zip_jsonl_csv $^ > $@
 
 # convert csv from SaturdayTeam to jsonl with mp4 urls
