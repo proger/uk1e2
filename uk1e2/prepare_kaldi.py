@@ -57,6 +57,7 @@ def prepare(dataset, datadir, g2p=None):
     spk2utt = defaultdict(set)
     wavscp = {}
     segments = {}
+    g2p_errors = []
 
     with ExitStack() as stack:
         lexicon = {}
@@ -94,9 +95,15 @@ def prepare(dataset, datadir, g2p=None):
 
         if g2p is not None:
             for word in lexicon:
-                pron = g2p(word)
+                try:
+                    pron = g2p(word)
+                except:
+                    g2p_errors.append(word)
+                    continue
+
                 if pron:
                     lexicon[word] = ' '.join(pron)
+                    
 
         for word in sorted(lexicon):
             if lexicon[word]:
@@ -112,7 +119,7 @@ def prepare(dataset, datadir, g2p=None):
     if segments:
         write_segments(segments, datadir / 'segments')
     write_scp(Counter(verbalizer.vocabulary.unk), datadir / 'unk.txt')
-
+    write_scp(Counter(g2p_errors), datadir / 'g2p.errors')
 
 if __name__ == '__main__':
     import argparse
