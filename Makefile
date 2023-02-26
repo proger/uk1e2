@@ -8,9 +8,9 @@ uk1e2.db: uk1e2.jsonl ytable2.jsonl
 utterances.csv: uk1e2.db
 	sqlite-utils rows uk1e2.db utterances --csv -c rowid -c domain -c source -c utterance_id -c start_time -c speaker_id -c text -c normalized_text -c start -c end -c url > $@
 
-# prepare youtube+uk1e2 data for WER evaluation
-prepare: utterances.csv
-	python -m uk1e2.prep_test_data
+# download youtube+uk1e2 data
+local_utterances.jsonl: utterances.csv
+	python -m uk1e2.download > $@
 
 # postprocess youtube txt brushlyk dump to tsv
 youtube1.tsv: youtube1.txt

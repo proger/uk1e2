@@ -22,5 +22,4 @@ To create a virtual environment, you may use `hatch shell`.
 
 ## Changelog
 
-- created the `prep_test_data.py` local test set preparation tool 
-It allows for source file downloading (and audio extraction) and preparing scp and text files
+- `make local_utterances.json` makes sure all audio is present on disk
