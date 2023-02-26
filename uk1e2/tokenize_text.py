@@ -25,18 +25,22 @@ def strip_accents(s):
     return t
 
 
-def keep_useful_characters(sentence, utterance_id='sentence'):
+def token_to_vocabulary_word(x):
+    s = alphabet_filter['cyr'].sub('', x)
+    if x != s:
+        # ignore a non-cyrillic word for now
+        logger.warning('word not represented: {}', x)
+        return "<unk>"
+    return x
+
+
+def keep_useful_characters(sentence):
     s = sentence.lower()
     s = s.replace('’', "'")
     s = s.replace('`', "'")
     s = s.replace('՚', "'")
     s = re_punct.sub(' ', s)
-    s1 = s
-    s1 = strip_accents(s1)
-    s = alphabet_filter['cyr'].sub('', s1)
-    if s1 != s:
-        logger.warning('skipping {} with latin text: |{}|{}|', utterance_id, (sentence, s1), s)
-        return None
+    s = strip_accents(s)
     s = re_whitespace.sub(' ', s)
     s = re_leading.sub('', s)
     s = re_trailing.sub('', s)
@@ -50,13 +54,12 @@ class Verbalizer:
         
     def forward(self, text, *, utterance_id='sentence'):
         text = ftfy.fix_text(text) # unicode
-        text = keep_useful_characters(text, utterance_id=utterance_id)
+        text = keep_useful_characters(text)
 
         if text is None:
             return None
         else:
-            words = [keep_useful_characters(t, utterance_id=utterance_id)
-                        for t in text.split()]
+            words = [token_to_vocabulary_word(t) for t in text.split()]
             
             return words
 
