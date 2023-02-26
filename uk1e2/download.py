@@ -31,7 +31,7 @@ class Utterance:
 
     def __post_init__(self):
         s, e = self.start, self.end
-        self.id = f'{self.recording_id}-{self.speaker_id}-{self.utterance_id}-{int(s*100):07d}-{int(e*100):07d}'
+        self.id = f'{self.speaker_id}-{self.recording_id}-{self.utterance_id}-{int(s*100):07d}-{int(e*100):07d}'
 
 
 
