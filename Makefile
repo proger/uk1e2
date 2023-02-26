@@ -1,5 +1,6 @@
 # index for https://wilab.org.ua/uk1e2
 uk1e2.db: uk1e2.jsonl ytable2.jsonl
+	rm -f uk1e2.db
 	sqlite-utils insert $@ utterances uk1e2.jsonl --nl
 	sqlite-utils insert $@ utterances ytable2.jsonl --nl --alter
 	sqlite-utils enable-fts $@ utterances text
