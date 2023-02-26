@@ -8,7 +8,7 @@ import sys
 
 def read_timestamp(x):
     hh,mm,ss = map(int, x.split(':'))
-    return ss + mm*60 + hh*60
+    return ss + mm*60 + hh*60*60
 
 def flush(obj, end_time):
     t = read_timestamp(obj['start_time'])
