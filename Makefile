@@ -12,6 +12,11 @@ utterances.csv: uk1e2.db
 local_utterances.jsonl: utterances.csv
 	python -m uk1e2.download > $@
 
+# kaldi data directory
+data/local/wav.scp: local_utterances.jsonl
+	python -m uk1e2.prepare_kaldi local_utterances.jsonl
+data/local/text data/local/spk2utt data/local/utt2spk data/local/segments: data/local/wav.scp
+
 # postprocess youtube txt brushlyk dump to tsv
 youtube1.tsv: youtube1.txt
 	cat $< | awk -v OFS="\t" '/__file__/{file=$$2; spk="Спікер"; next} /^# /{gsub("^# ", ""); spk=$$0; next} /^0[0-9-]+/{gsub("-",":"); ts=$$0; next} /Метадані:/{spk="__meta__"} /^..+$$/{print NR, file, ts, spk, $$0}' \

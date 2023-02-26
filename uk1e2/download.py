@@ -34,16 +34,9 @@ class Utterance:
         self.id = f'{self.speaker_id}-{self.recording_id}-{self.utterance_id}-{int(s*100):07d}-{int(e*100):07d}'
 
 
-
-def make_recording_id(x):
-    x = x.replace('.', '0')
-    x = x.replace('-', '0') # dashes confuse kaldi when segments or speakers are used
-    x = x.rjust(11, '0') # pad all names to match length of youtube ids
-    return f'R{x}'
-
-
 @dataclass
 class Record:
+    recording_url: str
     name: str = ''
     path: str = ''
     utterances: List[Utterance] = field(default_factory=list)
@@ -64,14 +57,39 @@ class Record:
         cmd = "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1".split()
         return subprocess.check_output(cmd + [self.path])
 
+    @staticmethod
+    def make_recording_id(x, domain):
+        x = x.replace('.', '0')
+        x = x.replace('-', '0') # dashes confuse kaldi when segments or speakers are used
+        x = x.rjust(11, '0') # pad all names to match length of youtube ids
+        domain_code = {
+            'Interview': 'I',
+            'courses': 'C',
+            'podcast': 'P',
+            'youtube': 'Y',
+        }[domain]
+        return f'{domain_code}{x}'
+
+    def download_(self, root, source, domain):
+        if self.name == "":  # a new record
+            self.name = self.make_recording_id(source, domain)
+            if "youtu" in self.recording_url:
+                self.path = root / (source + '.m4a')
+                if not self.path.exists():
+                    yt_dl(self.recording_url, root)
+                wav = self.path.with_suffix('.wav')
+                if not wav.exists():
+                    to_wav(self.path, wav)
+                self.path = wav
+            else:
+                self.path = root / (self.name + '.wav')
+                download_file(self.recording_url, self.path)
 
 
 class Corpus:
     def __init__(self, root: Path):
         self.root = root
-        self.records: List[Record] = []
         self.url2record: Dict[str, Record] = {}
-        self.id_to_record: Dict[str, Record] = {}
         self.speakers = {}
         
     def get_global_speaker_id(self, recording_id, speaker_id):
@@ -79,20 +97,12 @@ class Corpus:
         if not key in self.speakers:
             self.speakers[key] = len(self.speakers)
         return f'S{self.speakers[key]:05d}' 
-
-    def add_record(self, r: Record):
-        self.records.append(r)
     
-    def record_by_url(self, url: str, allow_create_new=True):
-        r = self.url2record.get(url, Record() if allow_create_new else None)
-        if r is not None and allow_create_new:
-            self.url2record[url] = r
-        return r
-    
-    @staticmethod
-    def _parse_utterance_url(segment_url: str):
-        url, params = segment_url.split("?", 1)
-        return url, params
+    def record_by_utterance_url(self, utterance_url: str):
+        recording_url, _ = utterance_url.split("?", 1)
+        if not recording_url in self.url2record:
+            self.url2record[recording_url] = Record(recording_url=recording_url)
+        return self.url2record[recording_url]
         
     def from_csv(self, lines: Iterable[List[AnyStr]]):
         for i, line in enumerate(lines):
@@ -102,32 +112,19 @@ class Corpus:
             rowid, domain, source, utterance_id, start_time, \
                 local_speaker_id, text, normalized_text, start, end, utterance_url = line
 
-            record_url, params = self._parse_utterance_url(utterance_url)
-
-            r = self.record_by_url(record_url, allow_create_new=True)
-
-            if r.name == "":  # a new record
-                r.name = make_recording_id(source)
-                if "youtu" in record_url:
-                    r.path = self.root / (source + '.m4a')
-                    if not r.path.exists():
-                        yt_dl(record_url, self.root)
-                    wav = r.path.with_suffix('.wav')
-                    if not wav.exists():
-                        to_wav(r.path, wav)
-                    r.path = wav
-                else:
-                    r.path = self.root / (r.name + '.wav')
-                    download(record_url, r.path)
-
-                self.id_to_record[r.name] = r
-                print(f"new record {len(self.id_to_record)} url={record_url} name={r.name}", file=sys.stderr)
+            r = self.record_by_utterance_url(utterance_url)
+            r.download_(self.root, source, domain)
 
             if end == "":
                 end = r.compute_duration() # end is missing for some final utterances: guess from file duration
+                
+            # TODO: guess reasonable enough utterance margins so that kaldi finds everything
+            if start == end:
+                start, end = float(start) - 0.3, float(end) + 0.3
+            else:
+                start, end = float(start), float(end)
 
-            # TODO: properly align start/end of utterances. maybe add a few seconds to the left and to the right?
-            s = Utterance(recording_id=r.name, text=text, normalized_text=normalized_text, start=float(start), end=float(end),
+            s = Utterance(recording_id=r.name, text=text, normalized_text=normalized_text, start=start, end=end,
                           speaker_id=self.get_global_speaker_id(r.name, local_speaker_id),
                           utterance_id=f'U{int(utterance_id):07d}', domain=domain, source=source,
                           utterance_url=utterance_url, recording_path=str(r.path))
@@ -137,7 +134,7 @@ class Corpus:
         assert len(self.speakers) < 1e5
         assert i < 1e7
 
-def download(url: str, target_audio_path: Path):
+def download_file(url: str, target_audio_path: Path):
     target_audio_path.parent.mkdir(exist_ok=True)
 
     if target_audio_path.exists():
@@ -197,7 +194,7 @@ def main():
     with open(csv_path) as csv_file:
         corpus.from_csv(csv.reader(csv_file, delimiter=','))
  
-    for recording_id, record in corpus.id_to_record.items():
+    for _, record in corpus.url2record.items():
         for segment in record.utterances:
             print(json.dumps(asdict(segment), ensure_ascii=False))
 

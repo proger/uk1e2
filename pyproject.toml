@@ -24,12 +24,17 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
+  "datasets",
   "datasette",
+  "ftfy",
+  "loguru",
   "pandas",
   "moviepy",
+  "phonetisaurus",
   "requests",
   "stanza",
   "sqlite-utils",
+  "tqdm",
   "websocket",
   "yt-dlp",
 ]
