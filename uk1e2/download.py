@@ -31,7 +31,7 @@ class Utterance:
 
     def __post_init__(self):
         s, e = self.start, self.end
-        self.id = f'{self.recording_id}-{int(self.utterance_id):07d}-{int(s*100):07d}-{int(e*100):07d}'
+        self.id = f'{self.recording_id}-{self.speaker_id}-{self.utterance_id}-{int(s*100):07d}-{int(e*100):07d}'
 
 
 
@@ -39,7 +39,7 @@ def make_recording_id(x):
     x = x.replace('.', '0')
     x = x.replace('-', '0') # dashes confuse kaldi when segments or speakers are used
     x = x.rjust(11, '0') # pad all names to match length of youtube ids
-    return x
+    return f'R{x}'
 
 
 @dataclass
@@ -72,7 +72,14 @@ class Corpus:
         self.records: List[Record] = []
         self.url2record: Dict[str, Record] = {}
         self.id_to_record: Dict[str, Record] = {}
+        self.speakers = {}
         
+    def get_global_speaker_id(self, recording_id, speaker_id):
+        key = (recording_id, speaker_id)
+        if not key in self.speakers:
+            self.speakers[key] = len(self.speakers)
+        return f'S{self.speakers[key]:05d}' 
+
     def add_record(self, r: Record):
         self.records.append(r)
     
@@ -93,7 +100,7 @@ class Corpus:
                 continue
 
             rowid, domain, source, utterance_id, start_time, \
-                speaker_id, text, normalized_text, start, end, utterance_url = line
+                local_speaker_id, text, normalized_text, start, end, utterance_url = line
 
             record_url, params = self._parse_utterance_url(utterance_url)
 
@@ -119,13 +126,16 @@ class Corpus:
             if end == "":
                 end = r.compute_duration() # end is missing for some final utterances: guess from file duration
 
-            # TODO: properly align start/end of utterances
+            # TODO: properly align start/end of utterances. maybe add a few seconds to the left and to the right?
             s = Utterance(recording_id=r.name, text=text, normalized_text=normalized_text, start=float(start), end=float(end),
-                          speaker_id=speaker_id, utterance_id=utterance_id, domain=domain, source=source,
+                          speaker_id=self.get_global_speaker_id(r.name, local_speaker_id),
+                          utterance_id=f'U{int(utterance_id):07d}', domain=domain, source=source,
                           utterance_url=utterance_url, recording_path=str(r.path))
 
             r.add_utterance(s)
-
+            
+        assert len(self.speakers) < 1e5
+        assert i < 1e7
 
 def download(url: str, target_audio_path: Path):
     target_audio_path.parent.mkdir(exist_ok=True)
