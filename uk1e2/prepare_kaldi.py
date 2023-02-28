@@ -3,7 +3,6 @@ Prepare Hugging Face-compatible audio dataset for training using Kaldi
 """
 
 from collections import defaultdict, Counter
-from contextlib import ExitStack
 from pathlib import Path
 from typing import Dict, Set, Tuple
 
@@ -12,6 +11,9 @@ from loguru import logger
 from sqlite_utils import Database
 from tqdm import tqdm
 
+
+from .phonetisaurus import g2p_batch
+#from uk.g2p import g2p_batch
 from .tokenize_text import Verbalizer
 
 
@@ -46,7 +48,7 @@ def verbalize(sample):
     return sample
 
 
-def prepare(dataset, datadir, g2p=None):
+def prepare(dataset, datadir):
     datadir.mkdir(exist_ok=True, parents=True)
     (datadir / 'wav').mkdir(exist_ok=True)
 
@@ -57,58 +59,42 @@ def prepare(dataset, datadir, g2p=None):
     spk2utt = defaultdict(set)
     wavscp = {}
     segments = {}
-    g2p_errors = []
+    lexicon = defaultdict(dict)
 
-    with ExitStack() as stack:
-        lexicon = {}
-        words_txt = stack.enter_context(open(datadir / 'words.txt', 'w'))
-        if g2p is not None:
-            lexicon_txt = stack.enter_context(open(datadir / 'lexicon.txt', 'w'))
+    samples = []
 
-        samples = []
+    for sample in tqdm(dataset):
+        utterance_id = sample['id']
+        words = sample['words']
+        
+        if words is None:
+            continue
 
-        for sample in tqdm(dataset):
-            utterance_id = sample['id']
-            words = sample['words']
-            
-            if words is None:
-                continue
+        sample['kaldi_text'] = text[utterance_id] = ' '.join(words)
+        utt2spk[utterance_id] = sample['speaker_id']
+        spk2utt[sample['speaker_id']].add(sample['id'])
 
-            sample['kaldi_text'] = text[utterance_id] = ' '.join(words)
-            utt2spk[utterance_id] = sample['speaker_id']
-            spk2utt[sample['speaker_id']].add(sample['id'])
+        start, end = sample['start'], sample['end']
 
-            start, end = sample['start'], sample['end']
+        recording_id = sample['id'].split('-')[1] # speaker-recoding-utt-start-end
+        wavscp[recording_id] = sample['recording_path']
+        segments[utterance_id] = (recording_id, start, end)
 
-            recording_id = sample['id'].split('-')[1] # speaker-recoding-utt-start-end
-            wavscp[recording_id] = sample['recording_path']
-            segments[utterance_id] = (recording_id, start, end)
+        #logger.debug('utt {}', sample)
+        samples.append(sample)
 
-            #logger.debug('utt {}', sample)
-            samples.append(sample)
+        for word in words:
+            if not word in lexicon:
+                lexicon[word] = {}
 
-            for word in words:
-                if not word in lexicon:
-                    lexicon[word] = None
+    db['utterances'].insert_all(samples, pk='id')
 
-        db['utterances'].insert_all(samples, pk='id')
-
-        if g2p is not None:
-            for word in lexicon:
-                try:
-                    pron = g2p(word)
-                except:
-                    g2p_errors.append(word)
-                    continue
-
-                if pron:
-                    lexicon[word] = ' '.join(pron)
-                    
-
-        for word in sorted(lexicon):
-            if lexicon[word]:
-                print(word, lexicon[word], file=lexicon_txt)
-            print(word, file=words_txt)
+    logger.debug("estimating lexicon")
+    oov = g2p_batch(lexicon)
+    for word in oov:
+        for pron in oov[word]:
+            lexicon[word][pron] = True
+    logger.info('learned {} new words', len(lexicon))
 
     db['utterances'].enable_fts(['text', 'normalized_text', 'kaldi_text'])
 
@@ -119,14 +105,22 @@ def prepare(dataset, datadir, g2p=None):
     if segments:
         write_segments(segments, datadir / 'segments')
     write_scp(Counter(verbalizer.vocabulary.unk), datadir / 'unk.txt')
-    write_scp(Counter(g2p_errors), datadir / 'g2p.errors')
+    write_scp(Counter([word for word in lexicon if not lexicon[word]]), datadir / 'g2p.errors')
+
+    with open(datadir / 'lexicon.txt', 'w') as lexicon_txt:
+        for word in lexicon:
+            for pron in lexicon[word]:
+                print(word, pron, file=lexicon_txt)
+    
+    with open(datadir / 'words.txt', 'w') as words_txt:
+        for word in sorted(lexicon):
+            print(word, file=words_txt)
+
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(__file__, description='prepare kaldi data directory with a speech dataset from Hugging Face',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--lexicon', action='store_true',
-                        help='generate lexicon for every word using ukro-g2p')
     parser.add_argument('--root', type=Path, default=Path('data'),
                         help='where to put {lang}/test and {lang}/train datadirs')
     parser.add_argument('local_utterances', help='make local_utterances.json')
@@ -136,13 +130,8 @@ if __name__ == '__main__':
 
     dataset = datasets.load_dataset('json', data_files=args.local_utterances, split='train')
 
-    if args.lexicon:
-        from uk.g2p import g2p
-    else:
-        g2p = None # TODO: phonetisaurus
-
     datadir = args.root / 'local'
     logger.info('writing to {}', datadir)
 
     dataset = dataset.map(verbalize, load_from_cache_file=False)
-    prepare(dataset, datadir, g2p=g2p)
+    prepare(dataset, datadir)

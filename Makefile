@@ -6,6 +6,14 @@ uk1e2.db: uk1e2.jsonl zipytable1.jsonl zipytable2.jsonl
 	sqlite-utils insert $@ utterances zipytable2.jsonl --nl --alter
 	sqlite-utils enable-fts $@ utterances text
 
+data/local/dict/g2p.fst:
+	mkdir -p data/local/dict
+	cd data/local/dict && curl -LO https://a.wilab.org.ua/uk/g2p.fst
+
+data/local/dict/uk_pron.v3.vcb:
+	mkdir -p data/local/dict
+	cd data/local/dict && curl -LO https://a.wilab.org.ua/uk/uk_pron.v3.vcb
+
 # make prepare needs this view
 utterances.csv: uk1e2.db
 	sqlite-utils rows uk1e2.db utterances --csv -c rowid -c domain -c source -c utterance_id -c start_time -c speaker_id -c text -c normalized_text -c start -c end -c url > $@
@@ -15,7 +23,7 @@ local_utterances.jsonl: utterances.csv
 	python -m uk1e2.download > $@
 
 # kaldi data directory
-data/local/wav.scp: local_utterances.jsonl
+data/local/wav.scp: local_utterances.jsonl data/local/dict/g2p.fst data/local/dict/uk_pron.v3.vcb
 	python -m uk1e2.prepare_kaldi local_utterances.jsonl
 data/local/text data/local/spk2utt data/local/utt2spk data/local/segments: data/local/wav.scp
 
