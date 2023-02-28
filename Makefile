@@ -29,6 +29,10 @@ data/local/text data/local/spk2utt data/local/utt2spk data/local/segments: data/
 
 data/segments: data/local/wav.scp data/local/segments
 	python -m uk1e2.extract_segments -o $@ -i $^
+data/segments/wav.scp: data/segments
+
+data/segments/segments.csv: data/segments/wav.scp data/local/text
+	join $^ | cut -d' ' -f2,3- | awk -v OFS=, 'BEGIN{print "path,text"} {printf "%s,", $$1; for (i = 2; i <= NF; i++) {printf "%s ", $$i}; printf "\n"}' > $@
 
 # postprocess youtube txt brushlyk dump to tsv
 # this file has been edited manually to resolve timing monotonicity
