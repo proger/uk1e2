@@ -27,6 +27,9 @@ data/local/wav.scp: local_utterances.jsonl data/local/dict/g2p.fst data/local/di
 	python -m uk1e2.prepare_kaldi local_utterances.jsonl
 data/local/text data/local/spk2utt data/local/utt2spk data/local/segments: data/local/wav.scp
 
+data/segments: data/local/wav.scp data/local/segments
+	python -m uk1e2.extract_segments -o $@ -i $^
+
 # postprocess youtube txt brushlyk dump to tsv
 # this file has been edited manually to resolve timing monotonicity
 ## youtube1.tsv: youtube1.txt
