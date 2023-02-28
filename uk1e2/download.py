@@ -67,7 +67,8 @@ class Record:
             'courses': 'C',
             'podcast': 'P',
             'youtube': 'Y',
-        }[domain]
+            'news': 'N',
+        }.get(domain, "")
         return f'{domain_code}{x}'
 
     def download_(self, root, source, domain):
@@ -85,6 +86,109 @@ class Record:
                 self.path = root / (self.name + '.wav')
                 download_file(self.recording_url, self.path)
 
+        """{
+  "transcript": "\nКатерина КЕЛЬБУС: == Україна хоче провести мирний саміт до кінця лютого, і зробити це планують в ООН"
+  "words": [
+    {
+      "case": "not-found-in-audio",
+      "endOffset": 9,
+      "startOffset": 1,
+      "word": "Катерина"
+    },
+    {
+      "alignedWord": "україна",
+      "case": "success",
+      "end": 1.95,
+      "endOffset": 46,
+      "phones": [],
+      "start": 1.41,
+      "startOffset": 39,
+      "word": "Україна"
+    }, 
+    ]
+    }
+"""
+    def from_alignment(self, ja: Dict, recording_id: AnyStr, domain="", start_utterance_id=1) -> List["Utterance"]:
+        min_cut_duration = 20.  # cut whatever is reach first: duration with minimal gap or speaker turn
+        utts: List["Utterance"] = []
+        cur_speaker_id = cur_speaker_name = ""
+        cur_speaker_name_offset = -1  # speaker name offset in transcription text
+        speaker_name2id = {}
+        cur_time = distance_to_prev = 0.
+        utt_duration = 0.
+        utt_words = []
+        utt = None
+        utt_start_index = -1
+        cur_utterance_id = start_utterance_id
+        text = ja.get("transcript", "")
+        words = utts.get("words", [])
+        # for i, w in enumerate(words):
+        for i in range(len(words) + 1):
+            w = words[i] if i < len(words) else None
+            is_first_in_utt = False if i < len(words) else True
+            is_last_in_utt = True if i + 1 >= len(words) else False
+            if not is_last_in_utt and w["case"] == "not-found-in-audio":
+                # TODO: update potential speaker name
+                if cur_speaker_name_offset < 0:
+                    if i == 0 or self._is_start_of_line(text, w["startOffset"]):  # check we are in line beginning
+                        cur_speaker_name_offset = w["startOffset"]
+                continue
+            if cur_speaker_name_offset >= 0 and i > 0:  # speaker label end is detected
+                cur_speaker_name = text[cur_speaker_name_offset : words[i-1][endOffset]]
+                speaker_name2id[cur_speaker_name] = speaker_name2id.get(cur_speaker_name, len(speaker_name2id)+1)
+                cur_speaker_name_offset = -1
+                is_first_in_utt = True
+
+            cur_time = w["end"] if w is not None else cur_time
+            if utt_start_index >= 0:
+                utt_duration += (w["end"] - words[utt_start_index]["start"]) if w is not None else 0
+            distance_to_prev = (w["start"] - words[i-1]["end"]) if 0 < i < len(words) else 0.
+            if min_cut_duration <= utt_duration and 0.1 < distance_to_prev:
+                is_first_in_utt = True
+
+            if is_first_in_utt and utt_start_index >= 0:  
+                # create utt with previous words starting with utt_start_index, if utt_start_index >= 0
+                start_word = words[utt_start_index]
+                utt_text = self._subtext_by_json_words(text, words, utt_start_index, i)
+                utt_word_sequence_text = self._subtext_by_json_words(text, words, utt_start_index, i, keep_decoration=False)
+                local_speaker_id = speaker_name2id.get(cur_speaker_name, "")
+                if not local_speaker_id:
+                    local_speaker_id = speaker_name2id[len(speaker_name2id)+1] = len(speaker_name2id) + 1
+                utt = Utterance(recording_id=self.name, text=utt_text, normalized_text=utt_word_sequence_text, 
+                                start=start_word["start"], end=cur_time,
+                            speaker_id=self.get_global_speaker_id(self.name, str(local_speaker_id)),
+                            utterance_id=f'U{int(cur_utterance_id):07d}', domain=domain, source=recording_id,
+                            utterance_url=self.recording_url, recording_path=self.path)
+                self.add_utterance(utt)
+                cur_utterance_id += 1
+                utt_start_index = i
+            
+    @staticmethod
+    def _subtext_by_json_words(text: str, words: List[Dict], start: int, stop: int, *, retain_skipped=False, keep_decoration=True):
+        result = ""
+        for i in range(start, stop):
+            w = words[i]
+            next_word = words[i+1] if i+1 < len(words) else None
+            if w["case"] == "not-found-in-audio":
+                if not retain_skipped:
+                    continue
+            t = text[w["startOffset"] : next_word["startOffset"] if next_word is not None else len(text)] if keep_decoration else (w["alignedWord"] + " ")
+            result += t
+        return result
+            
+    
+    @staticmethod
+    def _is_start_of_line(text: str, i: int):
+        i -= 1
+        while i >= 0:
+            c = text[i]
+            if not c.isspace():
+                return False
+            if c == "\n":
+                return True
+            i -= 1
+        return False if i >= 0 else True
+
 
 class Corpus:
     def __init__(self, root: Path):
@@ -98,11 +202,36 @@ class Corpus:
             self.speakers[key] = len(self.speakers)
         return f'S{self.speakers[key]:05d}' 
     
+    def globalize_speaker_ids(self):
+        for recording_id, record in self.url2record.items():
+            for utt in record.utterances:
+                global_speaker_id = self.get_global_speaker_id(recording_id, utt.speaker_id)
+                utt.speaker_id = global_speaker_id
+    
     def record_by_utterance_url(self, utterance_url: str):
         recording_url, _ = utterance_url.split("?", 1)
         if not recording_url in self.url2record:
             self.url2record[recording_url] = Record(recording_url=recording_url)
         return self.url2record[recording_url]
+        
+    def from_dir(self, dir_path: AnyStr, domain="news"):
+        # {"recording_id": "Ro0dlb0_0VeI", "id": "S00250-Ro0dlb0_0VeI-U0107190-0121300-0121300", "text": "Угу", "normalized_text": "Угу", "start": 1213.0, "end": 1213.0, "speaker_id": "S00250", "utterance_id": "U0107190", "domain": "youtube", "source": "o0dlb0_-VeI", "utterance_url": "https://www.youtube.com/embed/o0dlb0_-VeI?start=1213&end=1213", "recording_path": "data/corpus/o0dlb0_-VeI.wav"}
+        # read urls from dir_path/urls
+        with open(os.path.join(dir_path, "urls")) as urls:
+            utt_count = 0
+            for url in urls:
+                url = url.strip()
+                name = os.path.basename(url)
+                stem, ext = os.path.splitext(name)
+                # record_id = record_id_prefix + stem
+                align_path = os.path.join(dir_path, "align", stem + "json")
+                with open(align_path) as f:
+                    aj = json.loads(f.read())  # alignment json
+                    r = Record(recording_url=url, name=Record.make_recording_id(stem, domain))
+                    r.from_alignment(aj, start_utterance_id=utt_count)
+                    utt_count += len(r.utterances)
+            self.globalize_speaker_ids()  # update speaker ids
+
         
     def from_csv(self, lines: Iterable[List[AnyStr]]):
         for i, line in enumerate(lines):
@@ -191,8 +320,11 @@ def main():
     
     print(f"Reading {csv_path} and storing downloaded audio in {corpus_dir}", file=sys.stderr)
     corpus = Corpus(corpus_dir)
-    with open(csv_path) as csv_file:
-        corpus.from_csv(csv.reader(csv_file, delimiter=','))
+    if os.path.isfile(csv_path):
+        with open(csv_path) as csv_file:
+            corpus.from_csv(csv.reader(csv_file, delimiter=','))
+    elif os.path.isdir(csv_path):
+        corpus.from_dir()
  
     for _, record in corpus.url2record.items():
         for segment in record.utterances:
