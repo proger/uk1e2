@@ -119,10 +119,7 @@ class Corpus:
                 end = r.compute_duration() # end is missing for some final utterances: guess from file duration
                 
             # TODO: guess reasonable enough utterance margins so that kaldi finds everything
-            if start == end:
-                start, end = float(start) - 0.3, float(end) + 0.3
-            else:
-                start, end = float(start), float(end)
+            start, end = float(start) - 0.5, float(end) + 0.5
 
             s = Utterance(recording_id=r.name, text=text, normalized_text=normalized_text, start=start, end=end,
                           speaker_id=self.get_global_speaker_id(r.name, local_speaker_id),
