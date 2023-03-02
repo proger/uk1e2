@@ -37,10 +37,21 @@ data/segments/segments.csv: data/segments/wav.scp data/local/text
 # removing text that we think is bad
 data/local/text.filt1: data/local/text exp/segmented+aligned.ids
 	cat data/local/text | sort | join - exp/segmented+aligned.ids > $@
+	grep -- '-I' $@ > data/local/text.interview
+	grep -- '-P' $@ > data/local/text.podcast
+	grep -- '-C' $@ > data/local/text.courses
+	grep -- '-Y' $@ > data/local/text.youtube
+data/local/text.interview data/local/text.podcast data/local/text.courses data/local/text.youtube: data/local/text.filt1
 
-exp/wer: data/local/text.filt1
-	compute-wer --mode=present ark:data/local/text.filt1 ark:exp/nemo_segmented+aligned
-	compute-wer --mode=present ark:data/local/text.filt1 ark:exp/whisper.hyp
+exp/wer: data/local/text.interview data/local/text.podcast data/local/text.courses data/local/text.youtube
+	compute-wer --mode=present ark:data/local/text.interview ark:exp/nemo_segmented+aligned
+	compute-wer --mode=present ark:data/local/text.podcast ark:exp/nemo_segmented+aligned
+	compute-wer --mode=present ark:data/local/text.courses ark:exp/nemo_segmented+aligned
+	compute-wer --mode=present ark:data/local/text.youtube ark:exp/nemo_segmented+aligned
+	compute-wer --mode=present ark:data/local/text.interview ark:exp/whisper.hyp
+	compute-wer --mode=present ark:data/local/text.podcast ark:exp/whisper.hyp
+	compute-wer --mode=present ark:data/local/text.courses ark:exp/whisper.hyp
+	compute-wer --mode=present ark:data/local/text.youtube ark:exp/whisper.hyp
 
 # postprocess youtube txt brushlyk dump to tsv
 # this file has been edited manually to resolve timing monotonicity
