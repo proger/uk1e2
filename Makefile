@@ -34,6 +34,14 @@ data/segments/wav.scp: data/segments
 data/segments/segments.csv: data/segments/wav.scp data/local/text
 	join $^ | cut -d' ' -f2,3- | awk -v OFS=, 'BEGIN{print "path,text"} {printf "%s,", $$1; for (i = 2; i <= NF; i++) {printf "%s ", $$i}; printf "\n"}' > $@
 
+# removing text that we think is bad
+data/local/text.filt1: data/local/text exp/segmented+aligned.ids
+	cat data/local/text | sort | join - exp/segmented+aligned.ids > $@
+
+exp/wer: data/local/text.filt1
+	compute-wer --mode=present ark:data/local/text.filt1 ark:exp/nemo_segmented+aligned
+	compute-wer --mode=present ark:data/local/text.filt1 ark:exp/whisper.hyp
+
 # postprocess youtube txt brushlyk dump to tsv
 # this file has been edited manually to resolve timing monotonicity
 ## youtube1.tsv: youtube1.txt
