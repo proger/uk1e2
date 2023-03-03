@@ -75,10 +75,10 @@ class Record:
             self.name = self.make_recording_id(source, domain)
             if "youtu" in self.recording_url:
                 self.path = root / (source + '.m4a')
-                if not self.path.exists():
-                    yt_dl(self.recording_url, root)
                 wav = self.path.with_suffix('.wav')
                 if not wav.exists():
+                    if not self.path.exists():
+                        yt_dl(self.recording_url, root)
                     to_wav(self.path, wav)
                 self.path = wav
             else:
