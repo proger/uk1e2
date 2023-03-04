@@ -9,9 +9,12 @@ import sys
 
 import yt_dlp
 
-from typing import List, Dict, AnyStr, Iterable
+from typing import List, Dict, AnyStr, Iterable, Union
 
-from .tokenize_text import Verbalizer
+try:
+    from .tokenize_text import Verbalizer
+except Exception as e:
+    print(f"WARNING: while importing: {e}", file=sys.stderr)
 
 
 @dataclass
@@ -40,6 +43,7 @@ class Record:
     name: str = ''
     path: str = ''
     utterances: List[Utterance] = field(default_factory=list)
+    stats = {}  # store here some optional stats
         
     def add_utterance(self, s: Utterance):
         self.utterances.append(s)
@@ -121,7 +125,7 @@ class Record:
         utt_start_index = -1
         cur_utterance_id = start_utterance_id
         text = ja.get("transcript", "")
-        words = utts.get("words", [])
+        words = ja.get("words", [])
         # for i, w in enumerate(words):
         for i in range(len(words) + 1):
             w = words[i] if i < len(words) else None
@@ -134,15 +138,27 @@ class Record:
                         cur_speaker_name_offset = w["startOffset"]
                 continue
             if cur_speaker_name_offset >= 0 and i > 0:  # speaker label end is detected
-                cur_speaker_name = text[cur_speaker_name_offset : words[i-1][endOffset]]
+                cur_speaker_name = text[cur_speaker_name_offset : words[i-1]["endOffset"]]
                 speaker_name2id[cur_speaker_name] = speaker_name2id.get(cur_speaker_name, len(speaker_name2id)+1)
                 cur_speaker_name_offset = -1
                 is_first_in_utt = True
 
+            prev_aligned_word_index = self._get_prev_aligned_word_index(words, i)
+            prev_aligned_word = words[prev_aligned_word_index] if prev_aligned_word_index >= 0 else None
+            if not("start" in w and "end") in w:
+                print(f" {i}/{len(words)-1} is not aligned: {w}", file=sys.stderr)
+                assert w["case"] == "not-found-in-audio"
+                self.stats[w["case"]] = self.stats.get(w["case"], 0) + 1
+                if prev_aligned_word is None:
+                    print(f"   skipping it since no previous aligned word is found", file=sys.stderr)
+                    continue
+                w["start"] = prev_aligned_word["start"]
+                w["end"] = prev_aligned_word["end"]
+                
             cur_time = w["end"] if w is not None else cur_time
             if utt_start_index >= 0:
                 utt_duration += (w["end"] - words[utt_start_index]["start"]) if w is not None else 0
-            distance_to_prev = (w["start"] - words[i-1]["end"]) if 0 < i < len(words) else 0.
+            distance_to_prev = (w["start"] - prev_aligned_word["end"]) if prev_aligned_word is not None else 0.
             if min_cut_duration <= utt_duration and 0.1 < distance_to_prev:
                 is_first_in_utt = True
 
@@ -163,6 +179,15 @@ class Record:
                 cur_utterance_id += 1
                 utt_start_index = i
             
+    @staticmethod
+    def _get_prev_aligned_word_index(words: List[Dict], i: int) -> Union[Dict, None]:
+        while i > 0:
+            i -= 1
+            w = words[i]
+            if "start" in w and "end" in w:
+                return i
+        return -1
+    
     @staticmethod
     def _subtext_by_json_words(text: str, words: List[Dict], start: int, stop: int, *, retain_skipped=False, keep_decoration=True):
         result = ""
@@ -214,22 +239,28 @@ class Corpus:
             self.url2record[recording_url] = Record(recording_url=recording_url)
         return self.url2record[recording_url]
         
-    def from_dir(self, dir_path: AnyStr, domain="news"):
+    def from_dir(self, dir_path: AnyStr, domain="news", max_records=-1):
         # {"recording_id": "Ro0dlb0_0VeI", "id": "S00250-Ro0dlb0_0VeI-U0107190-0121300-0121300", "text": "Угу", "normalized_text": "Угу", "start": 1213.0, "end": 1213.0, "speaker_id": "S00250", "utterance_id": "U0107190", "domain": "youtube", "source": "o0dlb0_-VeI", "utterance_url": "https://www.youtube.com/embed/o0dlb0_-VeI?start=1213&end=1213", "recording_path": "data/corpus/o0dlb0_-VeI.wav"}
         # read urls from dir_path/urls
+        print(f"Reading urls from {dir_path}/urls", file=sys.stderr)
         with open(os.path.join(dir_path, "urls")) as urls:
             utt_count = 0
-            for url in urls:
+            for i, url in enumerate(urls):
                 url = url.strip()
+                print(f" [{i}] {url}", file=sys.stderr)
                 name = os.path.basename(url)
                 stem, ext = os.path.splitext(name)
                 # record_id = record_id_prefix + stem
-                align_path = os.path.join(dir_path, "align", stem + "json")
+                align_path = os.path.join(dir_path, "align", stem + ".json")
                 with open(align_path) as f:
+                    if 0 <= max_records <= len(self.url2record):
+                        print(f"Reached maximum of requested records: {len(self.url2record)}", file=sys.stderr)
                     aj = json.loads(f.read())  # alignment json
                     r = Record(recording_url=url, name=Record.make_recording_id(stem, domain))
-                    r.from_alignment(aj, start_utterance_id=utt_count)
+                    # def from_alignment(self, ja: Dict, recording_id: AnyStr, domain="", start_utterance_id=1) -> List["Utterance"]:
+                    r.from_alignment(aj, recording_id=name, domain=domain, start_utterance_id=utt_count)
                     utt_count += len(r.utterances)
+                    self.url2record[url] = r
             self.globalize_speaker_ids()  # update speaker ids
 
         
@@ -324,7 +355,9 @@ def main():
         with open(csv_path) as csv_file:
             corpus.from_csv(csv.reader(csv_file, delimiter=','))
     elif os.path.isdir(csv_path):
-        corpus.from_dir()
+        max_records = 1  # -1
+        print(f"... diving to the dir " + (f"for at most {max_records} records" if max_records >=0 else "") + "...", file=sys.stderr)
+        corpus.from_dir(csv_path, domain="news", max_records=max_records)
  
     for _, record in corpus.url2record.items():
         for segment in record.utterances:
