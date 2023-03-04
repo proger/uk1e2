@@ -26,13 +26,18 @@ class Utterance:
     start: float
     end: float
     speaker_id: str
-    utterance_id: str
+    utterance_id: str  # ??
     domain: str
     source: str
     utterance_url: str
     recording_path: str
 
     def __post_init__(self):
+        self.update_id()
+        #s, e = self.start, self.end
+        #self.id = f'{self.speaker_id}-{self.recording_id}-{self.utterance_id}-{int(s*100):07d}-{int(e*100):07d}'
+
+    def update_id(self):
         s, e = self.start, self.end
         self.id = f'{self.speaker_id}-{self.recording_id}-{self.utterance_id}-{int(s*100):07d}-{int(e*100):07d}'
 
@@ -88,6 +93,7 @@ class Record:
                 self.path = wav
             else:
                 self.path = root / (self.name + '.wav')
+                print(f"Downloading: {self.recording_url} --> {self.path}", file=sys.stderr)
                 download_file(self.recording_url, self.path)
 
         """{
@@ -115,7 +121,7 @@ class Record:
     def from_alignment(self, ja: Dict, recording_id: AnyStr, domain="", start_utterance_id=1) -> List["Utterance"]:
         min_cut_duration = 20.  # cut whatever is reach first: duration with minimal gap or speaker turn
         utts: List["Utterance"] = []
-        cur_speaker_id = cur_speaker_name = ""
+        cur_speaker_id = cur_speaker_name = partial_speaker_name = ""
         cur_speaker_name_offset = -1  # speaker name offset in transcription text
         speaker_name2id = {}
         cur_time = distance_to_prev = 0.
@@ -136,16 +142,42 @@ class Record:
                 if cur_speaker_name_offset < 0:
                     if i == 0 or self._is_start_of_line(text, w["startOffset"]):  # check we are in line beginning
                         cur_speaker_name_offset = w["startOffset"]
-                continue
+                stop_offset = w["endOffset"]
+                full_text_segment = text[cur_speaker_name_offset + len(partial_speaker_name) : stop_offset]
+                next_word_start = w["endOffset"]
+                text_segment = text[next_word_start : stop_offset]  # text[w["startOffset"] : stop_offset]
+                if full_text_segment.startswith(":"):
+                    next_word_start = cur_speaker_name_offset + len(partial_speaker_name) + 1
+                    stop_offset = next_word_start
+                    text_segment = text[next_word_start : w["endOffset"]]
+                    if len(speaker_name2id) < 2:
+                        print(f"    started with ':': {full_text_segment}. Next word: {text_segment}", file=sys.stderr)
+                if "==" in full_text_segment:  # process "==" marker
+                    next_word_start = cur_speaker_name_offset + len(partial_speaker_name) + full_text_segment.find("==") + 2
+                    stop_offset = next_word_start
+                    text_segment = text[next_word_start : w["endOffset"]]
+                    if len(speaker_name2id) < 2:
+                        print(f"    has '==': {full_text_segment}. Next word: {text_segment}", file=sys.stderr)
+                partial_speaker_name = text[cur_speaker_name_offset : stop_offset]
+                if len(speaker_name2id) < 2:
+                    print(f"    so far, collecting partial speaker name: {partial_speaker_name}", file=sys.stderr)
+                if  w["endOffset"] <= next_word_start:
+                    continue
+                else:
+                    w["startOffset"] = next_word_start
+                    w["word"] = text_segment
+                    w["start"] = self._get_start_time(words, i, i+10) - 0.1
+                    w["end"] = w["start"] + 0.1
             if cur_speaker_name_offset >= 0 and i > 0:  # speaker label end is detected
-                cur_speaker_name = text[cur_speaker_name_offset : words[i-1]["endOffset"]]
+                cur_speaker_name = partial_speaker_name  # text[cur_speaker_name_offset : words[i-1]["endOffset"]]
                 speaker_name2id[cur_speaker_name] = speaker_name2id.get(cur_speaker_name, len(speaker_name2id)+1)
                 cur_speaker_name_offset = -1
+                partial_speaker_name = ""
                 is_first_in_utt = True
 
             prev_aligned_word_index = self._get_prev_aligned_word_index(words, i)
             prev_aligned_word = words[prev_aligned_word_index] if prev_aligned_word_index >= 0 else None
-            if not("start" in w and "end") in w:
+            if w is not None and not("start" in w and "end") in w:
                 print(f" {i}/{len(words)-1} is not aligned: {w}", file=sys.stderr)
                 assert w["case"] == "not-found-in-audio"
                 self.stats[w["case"]] = self.stats.get(w["case"], 0) + 1
@@ -154,30 +186,47 @@ class Record:
                     continue
                 w["start"] = prev_aligned_word["start"]
                 w["end"] = prev_aligned_word["end"]
-                
-            cur_time = w["end"] if w is not None else cur_time
-            if utt_start_index >= 0:
-                utt_duration += (w["end"] - words[utt_start_index]["start"]) if w is not None else 0
-            distance_to_prev = (w["start"] - prev_aligned_word["end"]) if prev_aligned_word is not None else 0.
-            if min_cut_duration <= utt_duration and 0.1 < distance_to_prev:
-                is_first_in_utt = True
+            if w is not None and not is_first_in_utt:    
+                cur_time = w["end"] if w is not None else cur_time
+                if utt_start_index >= 0:
+                    utt_duration += (w["end"] - words[utt_start_index]["start"]) if w is not None else 0
+                distance_to_prev = (w["start"] - prev_aligned_word["end"]) if prev_aligned_word is not None else 0.
+                if min_cut_duration <= utt_duration and 0.1 < distance_to_prev:
+                    is_first_in_utt = True
 
-            if is_first_in_utt and utt_start_index >= 0:  
+            if is_first_in_utt:  # and utt_start_index >= 0:  
                 # create utt with previous words starting with utt_start_index, if utt_start_index >= 0
-                start_word = words[utt_start_index]
-                utt_text = self._subtext_by_json_words(text, words, utt_start_index, i)
-                utt_word_sequence_text = self._subtext_by_json_words(text, words, utt_start_index, i, keep_decoration=False)
-                local_speaker_id = speaker_name2id.get(cur_speaker_name, "")
-                if not local_speaker_id:
-                    local_speaker_id = speaker_name2id[len(speaker_name2id)+1] = len(speaker_name2id) + 1
-                utt = Utterance(recording_id=self.name, text=utt_text, normalized_text=utt_word_sequence_text, 
-                                start=start_word["start"], end=cur_time,
-                            speaker_id=self.get_global_speaker_id(self.name, str(local_speaker_id)),
-                            utterance_id=f'U{int(cur_utterance_id):07d}', domain=domain, source=recording_id,
-                            utterance_url=self.recording_url, recording_path=self.path)
-                self.add_utterance(utt)
-                cur_utterance_id += 1
+                if utt_start_index >= 0:
+                    start_word = words[utt_start_index]
+                    start_time = self._get_start_time(words, utt_start_index, i)
+                    if start_time is not None:
+                        utt_text = self._subtext_by_json_words(text, words, utt_start_index, i, retain_skipped=True)
+                        utt_word_sequence_text = self._subtext_by_json_words(text, words, utt_start_index, i, 
+                                                                             retain_skipped = True, keep_decoration=False)
+                        local_speaker_id = speaker_name2id.get(cur_speaker_name, "")
+                        if not local_speaker_id:
+                            local_speaker_id = speaker_name2id[len(speaker_name2id)+1] = len(speaker_name2id) + 1
+                        print(f"    utt: between {utt_start_index}-th and {i}-th words, {start_word['start']:.2f}, now {cur_time:.2f}s", file=sys.stderr)
+                        #print(f"    utt: from {start_word['start']}s to {cur_time}s, text: {utt_text}", file=sys.stderr)
+                        utt = Utterance(recording_id=self.name, text=utt_text, normalized_text=utt_word_sequence_text, 
+                                        start=start_word["start"], end=cur_time,
+                                    speaker_id=str(local_speaker_id),  #  self.get_global_speaker_id(self.name, str(local_speaker_id)),
+                                    utterance_id=f'U{cur_utterance_id-start_utterance_id:07d}', domain=domain, source=recording_id,
+                                    utterance_url=self.recording_url, recording_path=self.path)
+                        self.add_utterance(utt)
+                        cur_utterance_id += 1
+                    else:
+                        print(f"   WARNING: no start time in utterance between {utt_start_index}-th and {i}-th words - skipping it")
                 utt_start_index = i
+            
+    @staticmethod
+    def _get_start_time(words: List[Dict], i: int, stop_index: int) -> Union[Dict, None]:
+        while i < len(words):
+            w = words[i]
+            if "start" in w:
+                return w["start"]
+            i += 1
+        return None
             
     @staticmethod
     def _get_prev_aligned_word_index(words: List[Dict], i: int) -> Union[Dict, None]:
@@ -194,10 +243,19 @@ class Record:
         for i in range(start, stop):
             w = words[i]
             next_word = words[i+1] if i+1 < len(words) else None
+            stop_offset = next_word["startOffset"] if next_word is not None else len(text)
+            while stop_offset > 0:
+                if text[stop_offset - 1] not in "\n":
+                    break
+                stop_offset -= 1
             if w["case"] == "not-found-in-audio":
                 if not retain_skipped:
                     continue
-            t = text[w["startOffset"] : next_word["startOffset"] if next_word is not None else len(text)] if keep_decoration else (w["alignedWord"] + " ")
+            t = text[w["startOffset"] : stop_offset]
+            if keep_decoration and "alignedWord" in w:
+                (w["alignedWord"] + " ") 
+            if result and not result.endswith(" "):
+                result += " "
             result += t
         return result
             
@@ -228,10 +286,15 @@ class Corpus:
         return f'S{self.speakers[key]:05d}' 
     
     def globalize_speaker_ids(self):
-        for recording_id, record in self.url2record.items():
+        for url, record in self.url2record.items():
+            local2global_speaker_id = {}
             for utt in record.utterances:
-                global_speaker_id = self.get_global_speaker_id(recording_id, utt.speaker_id)
+                global_speaker_id = self.get_global_speaker_id(utt.recording_id, utt.speaker_id)
+                if utt.speaker_id not in local2global_speaker_id:
+                    print(f"   {record.name}, {utt.speaker_id} --> {global_speaker_id}", file=sys.stderr)
+                    local2global_speaker_id[utt.speaker_id] = global_speaker_id
                 utt.speaker_id = global_speaker_id
+                utt.update_id()
     
     def record_by_utterance_url(self, utterance_url: str):
         recording_url, _ = utterance_url.split("?", 1)
@@ -242,25 +305,32 @@ class Corpus:
     def from_dir(self, dir_path: AnyStr, domain="news", max_records=-1):
         # {"recording_id": "Ro0dlb0_0VeI", "id": "S00250-Ro0dlb0_0VeI-U0107190-0121300-0121300", "text": "Угу", "normalized_text": "Угу", "start": 1213.0, "end": 1213.0, "speaker_id": "S00250", "utterance_id": "U0107190", "domain": "youtube", "source": "o0dlb0_-VeI", "utterance_url": "https://www.youtube.com/embed/o0dlb0_-VeI?start=1213&end=1213", "recording_path": "data/corpus/o0dlb0_-VeI.wav"}
         # read urls from dir_path/urls
-        print(f"Reading urls from {dir_path}/urls", file=sys.stderr)
+        print(f"Reading urls from {dir_path}/urls to: {self.root}", file=sys.stderr)
         with open(os.path.join(dir_path, "urls")) as urls:
             utt_count = 0
             for i, url in enumerate(urls):
+                if 0 <= max_records <= len(self.url2record):
+                    print(f"Reached maximum of requested records: {len(self.url2record)}", file=sys.stderr)
+                    break
                 url = url.strip()
-                print(f" [{i}] {url}", file=sys.stderr)
-                name = os.path.basename(url)
+                name = url.split("/")[-1] # os.path.basename(url)
                 stem, ext = os.path.splitext(name)
                 # record_id = record_id_prefix + stem
                 align_path = os.path.join(dir_path, "align", stem + ".json")
+                print(f" [{i}] {url} ({stem})", file=sys.stderr)
                 with open(align_path) as f:
-                    if 0 <= max_records <= len(self.url2record):
-                        print(f"Reached maximum of requested records: {len(self.url2record)}", file=sys.stderr)
                     aj = json.loads(f.read())  # alignment json
                     r = Record(recording_url=url, name=Record.make_recording_id(stem, domain))
+                    print(f"  id:{r.name}", file=sys.stderr)
                     # def from_alignment(self, ja: Dict, recording_id: AnyStr, domain="", start_utterance_id=1) -> List["Utterance"]:
-                    r.from_alignment(aj, recording_id=name, domain=domain, start_utterance_id=utt_count)
+                    r.from_alignment(aj, recording_id=r.name, domain=domain, start_utterance_id=utt_count)
                     utt_count += len(r.utterances)
+                    print(f"  loaded {len(r.utterances)}, total {utt_count} utterances", file=sys.stderr)
                     self.url2record[url] = r
+                    if self.root:
+                        source = r.name  # ?
+                        r.name = ""
+                        r.download_(self.root, stem, domain)
             self.globalize_speaker_ids()  # update speaker ids
 
         
@@ -346,18 +416,22 @@ def to_wav(v: Path, a: Path):
 
 def main():
     csv_path = Path(sys.argv[1] if len(sys.argv) > 1 else "utterances.csv")
-    corpus_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "data/corpus")
-    corpus_dir.mkdir(parents=True, exist_ok=True)
+    # corpus_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "")  # "data/corpus")
+    corpus_dir = sys.argv[2] if len(sys.argv) > 2 else ""  # "data/corpus")
+    if corpus_dir:
+        corpus_dir = Path(corpus_dir)
+        corpus_dir.mkdir(parents=True, exist_ok=True)
     
-    print(f"Reading {csv_path} and storing downloaded audio in {corpus_dir}", file=sys.stderr)
+    print(f"Reading {csv_path} and storing downloaded audio in '{corpus_dir}'", file=sys.stderr)
     corpus = Corpus(corpus_dir)
     if os.path.isfile(csv_path):
         with open(csv_path) as csv_file:
             corpus.from_csv(csv.reader(csv_file, delimiter=','))
     elif os.path.isdir(csv_path):
-        max_records = 1  # -1
+        max_records = 5  # 1  # -1
         print(f"... diving to the dir " + (f"for at most {max_records} records" if max_records >=0 else "") + "...", file=sys.stderr)
         corpus.from_dir(csv_path, domain="news", max_records=max_records)
+        print(f"Processed {len(corpus.url2record.items())} records", file=sys.stderr)
  
     for _, record in corpus.url2record.items():
         for segment in record.utterances:
