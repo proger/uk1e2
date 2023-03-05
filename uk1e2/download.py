@@ -125,7 +125,7 @@ class Record:
         cur_speaker_id = cur_speaker_name = partial_speaker_name = ""
         cur_speaker_name_offset = -1  # speaker name offset in transcription text
         speaker_name2id = {}
-        cur_time = distance_to_prev = 0.
+        cur_time = distance_to_prev = cur_end_time = 0.
         utt_duration = 0.
         utt_words = []
         utt = None
@@ -191,11 +191,11 @@ class Record:
                     continue
                 w["start"] = prev_aligned_word["start"]
                 w["end"] = prev_aligned_word["end"]
+            cur_time = w["end"] if w is not None else cur_time  # 
             if w is not None and not is_first_in_utt:    
-                cur_time = w["end"] if w is not None else cur_time
                 if utt_start_index >= 0:
                     utt_duration = (cur_time - words[utt_start_index]["start"])  # if w is not None else 0
-                    utt_duration += (cur_time - words[utt_start_index]["start"]) if w is not None else 0
+                    # utt_duration += (cur_time - words[utt_start_index]["start"]) if w is not None else 0
                 distance_to_prev = (w["start"] - prev_aligned_word["end"]) if prev_aligned_word is not None else 0.
                 if min_cut_duration <= utt_duration and 0.1 < distance_to_prev:
                     print(f"   Found duration:{utt_duration:.2f}, distance:{distance_to_prev:2f}", file=sys.stderr)
@@ -214,10 +214,10 @@ class Record:
                         local_speaker_id = speaker_name2id.get(cur_speaker_name, "")
                         if not local_speaker_id:
                             local_speaker_id = speaker_name2id[len(speaker_name2id)+1] = len(speaker_name2id) + 1
-                        print(f"    utt: between {utt_start_index}-th and {i}-th words, {start_word['start']:.2f}:{cur_time:.2f}s", file=sys.stderr)
-                        #print(f"    utt: from {start_word['start']}s to {cur_time}s, text: {utt_text}", file=sys.stderr)
+                        print(f"    utt: between {utt_start_index}-th and {i}-th words, {start_word['start']:.2f}:{cur_end_time:.2f}s", file=sys.stderr)
+                        #print(f"    utt: from {start_word['start']}s to {cur_end_time}s, text: {utt_text}", file=sys.stderr)
                         utt = Utterance(recording_id=self.name, text=utt_text, normalized_text=utt_word_sequence_text, 
-                            start=start_word["start"], end=cur_time,
+                            start=start_word["start"], end=cur_end_time,
                             speaker_id=str(local_speaker_id),  #  self.get_global_speaker_id(self.name, str(local_speaker_id)),
                             utterance_id=f'U{cur_utterance_id-start_utterance_id:07d}', domain=domain, source=recording_id,
                             utterance_url=self.recording_url, recording_path=self.path)
@@ -227,6 +227,7 @@ class Record:
                         print(f"   WARNING: no start time in utterance between {utt_start_index}-th and {i}-th words - skipping it")
                 utt_start_index = i
                 is_first_in_utt = False
+            cur_end_time = cur_time
             
     @staticmethod
     def _get_start_time(words: List[Dict], cur_index: int, stop_index: int) -> Union[Dict, None]:
