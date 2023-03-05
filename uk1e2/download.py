@@ -181,7 +181,7 @@ def yt_dl(url, dir: Path):
 
 
 def to_wav(v: Path, a: Path):
-    cl = ["ffmpeg", "-i", str(v), "-vn", "-ac", "1", "-acodec", "pcm_s16le", "-ar", "16000", str(a)]
+    cl = ["ffmpeg", "-loglevel", "quiet", "-i", str(v), "-vn", "-ac", "1", "-acodec", "pcm_s16le", "-ar", "16000", str(a)]
     print(f"Converting audio by command: {' '.join(cl)}", file=sys.stderr)
     subprocess.check_call(cl)
 
