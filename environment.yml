@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.9
+  - kaldi=*=*cpu*
+  - sox
+  - ffmpeg
+  - pip
+  - pip:
+      - hatch
