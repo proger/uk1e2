@@ -80,7 +80,8 @@ class Record:
         }.get(domain, "")
         return f'{domain_code}{x}'
 
-    def download_(self, root, source, domain):
+    def download_(self, root, source, domain, host_creds):
+        root = Path(root) if isinstance(root, str) else root
         if self.name == "":  # a new record
             self.name = self.make_recording_id(source, domain)
             if "youtu" in self.recording_url:
@@ -94,7 +95,7 @@ class Record:
             else:
                 self.path = root / (self.name + '.wav')
                 print(f"Downloading: {self.recording_url} --> {self.path}", file=sys.stderr)
-                download_file(self.recording_url, self.path)
+                download_file(self.recording_url, self.path, auth=host_creds)
 
         """{
   "transcript": "\nКатерина КЕЛЬБУС: == Україна хоче провести мирний саміт до кінця лютого, і зробити це планують в ООН"
@@ -290,6 +291,7 @@ class Corpus:
     def __init__(self, root: Path):
         self.root = root
         self.url2record: Dict[str, Record] = {}
+        self.host_creds = None
         self.speakers = {}
         
     def get_global_speaker_id(self, recording_id, speaker_id):
@@ -349,7 +351,7 @@ class Corpus:
                     if self.root:
                         source = r.name  # ?
                         r.name = ""
-                        r.download_(self.root, stem, domain)
+                        r.download_(self.root, stem, domain, self.host_creds)
             self.globalize_speaker_ids()  # update speaker ids
         if len(missing_alignments):
             print(f"Found {len(missing_alignments)} missing alignments", file=sys.stderr)
@@ -365,7 +367,7 @@ class Corpus:
                 local_speaker_id, text, normalized_text, start, end, utterance_url = line
 
             r = self.record_by_utterance_url(utterance_url)
-            r.download_(self.root, source, domain)
+            r.download_(self.root, source, domain, self.host_creds)
 
             if end == "":
                 end = r.compute_duration() # end is missing for some final utterances: guess from file duration
@@ -386,7 +388,7 @@ class Corpus:
         assert len(self.speakers) < 1e5
         assert i < 1e7
 
-def download_file(url: str, target_audio_path: Path):
+def download_file(url: str, target_audio_path: Path, auth=None):
     target_audio_path.parent.mkdir(exist_ok=True)
 
     if target_audio_path.exists():
@@ -395,9 +397,9 @@ def download_file(url: str, target_audio_path: Path):
     filename = url.split('/')[-1].replace(" ", "_")  # be careful with file names
     file_path = target_audio_path.parent / filename
     if not file_path.exists():
-        r = requests.get(url, stream=True)
+        r = requests.get(url, stream=True, auth=auth)
         if r.ok:
-            print("saving to", file_path.absolute(), file=sys.stderr)
+            print("saving to:", file_path.absolute(), file=sys.stderr)
             with open(file_path, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=1024 * 1024 * 2):  # 1024 * 8
                     if chunk:
@@ -409,7 +411,8 @@ def download_file(url: str, target_audio_path: Path):
 
     to_wav(file_path, target_audio_path)
     if not target_audio_path.exists():
-        raise FileNotFoundError("extracting audio did not word")
+        raise FileNotFoundError(f"Audio extraction failed for {file_path}")
+    file_path.unlink()
 
 
 def yt_dl(url, dir: Path):
@@ -439,13 +442,15 @@ def to_wav(v: Path, a: Path):
 def main():
     csv_path = Path(sys.argv[1] if len(sys.argv) > 1 else "utterances.csv")
     # corpus_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "")  # "data/corpus")
-    corpus_dir = sys.argv[2] if len(sys.argv) > 2 else ""  # "data/corpus")
-    if corpus_dir:
+    corpus_dir = sys.argv[2] if len(sys.argv) > 2 else ""  # "data/corpus"
+    if corpus_dir:  # do not download for empty dir path, which is interpreted as ./ by Path()
         corpus_dir = Path(corpus_dir)
         corpus_dir.mkdir(parents=True, exist_ok=True)
+    host_creds = sys.argv[3] if len(sys.argv) > 3 else "oco:mykolynapohoda"
     
     print(f"Reading {csv_path} and storing downloaded audio in '{corpus_dir}'", file=sys.stderr)
     corpus = Corpus(corpus_dir)
+    corpus.host_creds = (host_creds.split(":", 1)[0], host_creds.split(":", 1)[1]) if ":" in host_creds else None
     if os.path.isfile(csv_path):
         with open(csv_path) as csv_file:
             corpus.from_csv(csv.reader(csv_file, delimiter=','))
