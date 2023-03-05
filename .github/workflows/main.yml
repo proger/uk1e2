@@ -64,9 +64,9 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Assemble the dataset
-        run: /usr/share/miniconda3/envs/my-env/bin/hatch run make
-          
-          
+        run: |
+          export PATH=/usr/share/miniconda3/envs/my-env/bin:$PATH
+          hatch run make          
           
           
           
