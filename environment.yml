@@ -6,5 +6,6 @@ dependencies:
   - sox
   - ffmpeg
   - pip
+  - make
   - pip:
       - hatch
