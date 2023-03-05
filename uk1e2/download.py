@@ -166,8 +166,12 @@ class Record:
                 else:
                     w["startOffset"] = next_word_start
                     w["word"] = text_segment
-                    w["start"] = self._get_start_time(words, i, i+10) - 0.1
-                    w["end"] = w["start"] + 0.1
+                    start_time = self._get_start_time(words, i, i+20)
+                    if start_time is None:
+                        print(f"    WARNING: None start_time for {i}-th {w}", file=sys.stderr)
+                        continue
+                    w["start"] = start_time - 0.1
+                    w["end"] = start_time + 0.1
             if cur_speaker_name_offset >= 0 and i > 0:  # speaker label end is detected
                 cur_speaker_name = partial_speaker_name  # text[cur_speaker_name_offset : words[i-1]["endOffset"]]
                 speaker_name2id[cur_speaker_name] = speaker_name2id.get(cur_speaker_name, len(speaker_name2id)+1)
@@ -189,9 +193,12 @@ class Record:
             if w is not None and not is_first_in_utt:    
                 cur_time = w["end"] if w is not None else cur_time
                 if utt_start_index >= 0:
-                    utt_duration += (w["end"] - words[utt_start_index]["start"]) if w is not None else 0
+                    utt_duration = (cur_time - words[utt_start_index]["start"])  # if w is not None else 0
+                    utt_duration += (cur_time - words[utt_start_index]["start"]) if w is not None else 0
                 distance_to_prev = (w["start"] - prev_aligned_word["end"]) if prev_aligned_word is not None else 0.
                 if min_cut_duration <= utt_duration and 0.1 < distance_to_prev:
+                    print(f"   Found duration:{utt_duration:.2f}, distance:{distance_to_prev:2f}", file=sys.stderr)
+                    #utt_duration = 0
                     is_first_in_utt = True
 
             if is_first_in_utt:  # and utt_start_index >= 0:  
@@ -206,26 +213,32 @@ class Record:
                         local_speaker_id = speaker_name2id.get(cur_speaker_name, "")
                         if not local_speaker_id:
                             local_speaker_id = speaker_name2id[len(speaker_name2id)+1] = len(speaker_name2id) + 1
-                        print(f"    utt: between {utt_start_index}-th and {i}-th words, {start_word['start']:.2f}, now {cur_time:.2f}s", file=sys.stderr)
+                        print(f"    utt: between {utt_start_index}-th and {i}-th words, {start_word['start']:.2f}:{cur_time:.2f}s", file=sys.stderr)
                         #print(f"    utt: from {start_word['start']}s to {cur_time}s, text: {utt_text}", file=sys.stderr)
                         utt = Utterance(recording_id=self.name, text=utt_text, normalized_text=utt_word_sequence_text, 
-                                        start=start_word["start"], end=cur_time,
-                                    speaker_id=str(local_speaker_id),  #  self.get_global_speaker_id(self.name, str(local_speaker_id)),
-                                    utterance_id=f'U{cur_utterance_id-start_utterance_id:07d}', domain=domain, source=recording_id,
-                                    utterance_url=self.recording_url, recording_path=self.path)
+                            start=start_word["start"], end=cur_time,
+                            speaker_id=str(local_speaker_id),  #  self.get_global_speaker_id(self.name, str(local_speaker_id)),
+                            utterance_id=f'U{cur_utterance_id-start_utterance_id:07d}', domain=domain, source=recording_id,
+                            utterance_url=self.recording_url, recording_path=self.path)
                         self.add_utterance(utt)
                         cur_utterance_id += 1
                     else:
                         print(f"   WARNING: no start time in utterance between {utt_start_index}-th and {i}-th words - skipping it")
                 utt_start_index = i
+                is_first_in_utt = False
             
     @staticmethod
-    def _get_start_time(words: List[Dict], i: int, stop_index: int) -> Union[Dict, None]:
-        while i < len(words):
+    def _get_start_time(words: List[Dict], cur_index: int, stop_index: int) -> Union[Dict, None]:
+        i = cur_index
+        while i < len(words):  # TODO: stop_index
             w = words[i]
             if "start" in w:
                 return w["start"]
             i += 1
+        # try previous
+        i = Record._get_prev_aligned_word_index(words, cur_index)
+        if i >= 0:
+            return words[i]["end"]
         return None
             
     @staticmethod
@@ -305,7 +318,9 @@ class Corpus:
     def from_dir(self, dir_path: AnyStr, domain="news", max_records=-1):
         # {"recording_id": "Ro0dlb0_0VeI", "id": "S00250-Ro0dlb0_0VeI-U0107190-0121300-0121300", "text": "Угу", "normalized_text": "Угу", "start": 1213.0, "end": 1213.0, "speaker_id": "S00250", "utterance_id": "U0107190", "domain": "youtube", "source": "o0dlb0_-VeI", "utterance_url": "https://www.youtube.com/embed/o0dlb0_-VeI?start=1213&end=1213", "recording_path": "data/corpus/o0dlb0_-VeI.wav"}
         # read urls from dir_path/urls
-        print(f"Reading urls from {dir_path}/urls to: {self.root}", file=sys.stderr)
+        alignment_dir = os.path.join(dir_path, 'align')
+        print(f"Reading urls from {dir_path}/urls by alignments in {alignment_dir} to: {self.root}", file=sys.stderr)
+        missing_alignments = []
         with open(os.path.join(dir_path, "urls")) as urls:
             utt_count = 0
             for i, url in enumerate(urls):
@@ -316,7 +331,11 @@ class Corpus:
                 name = url.split("/")[-1] # os.path.basename(url)
                 stem, ext = os.path.splitext(name)
                 # record_id = record_id_prefix + stem
-                align_path = os.path.join(dir_path, "align", stem + ".json")
+                align_path = os.path.join(alignment_dir, stem + ".json")
+                if not os.path.isfile(align_path):
+                    print(f" [{i}] {url} ({stem})", file=sys.stderr)
+                    missing_alignments.append(align_path)
+                    continue
                 print(f" [{i}] {url} ({stem})", file=sys.stderr)
                 with open(align_path) as f:
                     aj = json.loads(f.read())  # alignment json
@@ -332,7 +351,10 @@ class Corpus:
                         r.name = ""
                         r.download_(self.root, stem, domain)
             self.globalize_speaker_ids()  # update speaker ids
-
+        if len(missing_alignments):
+            print(f"Found {len(missing_alignments)} missing alignments", file=sys.stderr)
+            for i, path in enumerate(missing_alignments):
+                print(f" [{i}]\t{path}", file=sys.stderr)
         
     def from_csv(self, lines: Iterable[List[AnyStr]]):
         for i, line in enumerate(lines):
@@ -428,7 +450,7 @@ def main():
         with open(csv_path) as csv_file:
             corpus.from_csv(csv.reader(csv_file, delimiter=','))
     elif os.path.isdir(csv_path):
-        max_records = 5  # 1  # -1
+        max_records = -1  # 1  # -1
         print(f"... diving to the dir " + (f"for at most {max_records} records" if max_records >=0 else "") + "...", file=sys.stderr)
         corpus.from_dir(csv_path, domain="news", max_records=max_records)
         print(f"Processed {len(corpus.url2record.items())} records", file=sys.stderr)
