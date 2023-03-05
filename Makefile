@@ -1,3 +1,5 @@
+all: uk1e2.db local_utterances.jsonl
+
 # index for https://wilab.org.ua/uk1e2
 uk1e2.db: uk1e2.jsonl zipytable1.jsonl zipytable2.jsonl
 	rm -f uk1e2.db
