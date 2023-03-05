@@ -10,7 +10,7 @@ on:
 
 
 env:
-  CACHE_NUMBER: 0  # increase to reset cache manually
+  CACHE_NUMBER: 1  # increase to reset cache manually
 
 concurrency:
   group: run_tests-${{ github.ref }}
