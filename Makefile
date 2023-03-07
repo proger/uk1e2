@@ -1,9 +1,19 @@
+ifeq ($(HATCH_ENV_ACTIVE),)
+  $(warning HATCH_ENV_ACTIVE is not set. Use make inside `hatch shell` or do `hatch run make`.)
+endif
+
 # index for https://wilab.org.ua/uk1e2
-uk1e2.db: uk1e2.jsonl zipytable1.jsonl zipytable2.jsonl
-	rm -f uk1e2.db
-	sqlite-utils insert $@ utterances uk1e2.jsonl --nl
-	sqlite-utils insert $@ utterances zipytable1.jsonl --nl --alter
-	sqlite-utils insert $@ utterances zipytable2.jsonl --nl --alter
+uk1e2.db: local_utterances.jsonl data/segments/wav.scp
+	rm -f $@
+	< $< jq -rc '{id,domain,text,normalized_text,start,end:.end,utterance_url:"https://a.wilab.org.ua/wav/\(.id).wav"}' | sqlite-utils insert $@ utterances - --nl --pk id
+	sqlite-utils enable-fts $@ utterances id domain text normalized_text
+
+# aggregate source for utterances.csv
+intermediate.db: uk1e2.jsonl zipytable1.jsonl zipytable2.jsonl
+	rm -f $@
+	sqlite-utils insert $@ utterances uk1e2.jsonl --nl --quiet
+	sqlite-utils insert $@ utterances zipytable1.jsonl --nl --alter --quiet
+	sqlite-utils insert $@ utterances zipytable2.jsonl --nl --alter --quiet
 	sqlite-utils enable-fts $@ utterances text
 
 data/local/dict/g2p.fst:
@@ -15,8 +25,8 @@ data/local/dict/uk_pron.v3.vcb:
 	cd data/local/dict && curl -LO https://a.wilab.org.ua/uk/uk_pron.v3.vcb
 
 # make prepare needs this view
-utterances.csv: uk1e2.db
-	sqlite-utils rows uk1e2.db utterances --csv -c rowid -c domain -c source -c utterance_id -c start_time -c speaker_id -c text -c normalized_text -c start -c end -c url > $@
+utterances.csv: intermediate.db
+	sqlite-utils rows $< utterances --csv -c rowid -c domain -c source -c utterance_id -c start_time -c speaker_id -c text -c normalized_text -c start -c end -c url > $@
 
 # download youtube+uk1e2 data
 local_utterances.jsonl: utterances.csv
@@ -28,9 +38,8 @@ data/local/wav.scp: local_utterances.jsonl data/local/dict/g2p.fst data/local/di
 	python -m uk1e2.prepare_kaldi local_utterances.jsonl
 data/local/text data/local/spk2utt data/local/utt2spk data/local/segments: data/local/wav.scp
 
-data/segments: data/local/wav.scp data/local/segments
-	python -m uk1e2.extract_segments -o $@ -i $^
-data/segments/wav.scp: data/segments
+data/segments/wav.scp: data/local/wav.scp data/local/segments
+	python -m uk1e2.extract_segments -o data/segments -i $^
 
 data/segments/segments.csv: data/segments/wav.scp data/local/text
 	join $^ | cut -d' ' -f2,3- | awk -v OFS=, 'BEGIN{print "path,text"} {printf "%s,", $$1; for (i = 2; i <= NF; i++) {printf "%s ", $$i}; printf "\n"}' > $@
@@ -118,6 +127,6 @@ news/wav.scp: news/webm
 	find news/webm/ | awk -F/ '{print $$3}' | sed 's,.webm,,g' | awk '{print $$1, "ffmpeg -i news/webm/"$$1".webm -f wav -acodec pcm_s16le -ar 16000 -ac 1 - |"}' > $@
 
 clean:
-	rm -f uk1e2.db uk1e2.jsonl ytable1.jsonl youtube1.tsv
+	rm -f intermediate.db uk1e2.db uk1e2.jsonl ytable1.jsonl youtube1.tsv
 
 .DELETE_ON_ERROR:
