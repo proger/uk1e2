@@ -12,7 +12,8 @@ utterances.csv: uk1e2.db
 
 # download youtube+uk1e2 data
 local_utterances.jsonl: utterances.csv
-	python -m uk1e2.download > $@
+	python -m uk1e2.download utterances.csv data/corpus > $@
+	python -m uk1e2.download news data/corpus >> $@
 
 # kaldi data directory
 data/local/wav.scp: local_utterances.jsonl
