@@ -1,3 +1,4 @@
+import argparse
 from dataclasses import dataclass, field, asdict
 import csv
 import json
@@ -52,6 +53,17 @@ class Utterance:
         self.end = other.end
         self.update_id()
         return True
+    
+    @staticmethod
+    def clean_text_prefix(text: str, divisor="=="):  # "abc de == fghi j kl" --> "fghi j kl"
+        if divisor:
+            i = text.find(divisor)
+            text = text[i + len(divisor):].strip() if i >= 0 else text
+        return text
+
+    def clean_text_prefixes(self, divisor="=="):
+        self.text = self.clean_text_prefix(self.text)
+        self.normalized_text = self.clean_text_prefix(self.normalized_text)
 
 
 @dataclass
@@ -65,11 +77,11 @@ class Record:
     def add_utterance(self, s: Utterance):
         self.utterances.append(s)
     
-    def to_text(self, allow_multiline=True):
+    def to_text(self, *, allow_multiline=True, enable_decoration=True):
         t = ""
         sep = "\n" if allow_multiline else " "
         for s in self.utterances:
-            t += (sep if t else "") + s.text
+            t += (sep if t else "") + (s.text if enable_decoration else s.normalized_text)
         if not allow_multiline:
             t = t.replace("\n", " ")
         return t
@@ -92,7 +104,7 @@ class Record:
         }.get(domain, "")
         return f'{domain_code}{x}'
 
-    def download_(self, root, source, domain, host_creds):
+    def download_(self, root, source, *, domain, auth, audio_codec="wav"):
         root = Path(root) if isinstance(root, str) else root
         if self.name == "":  # a new record
             self.name = self.make_recording_id(source, domain)
@@ -105,9 +117,9 @@ class Record:
                     to_wav(self.path, wav)
                 self.path = wav
             else:
-                self.path = root / (self.name + '.wav')
+                self.path = root / (self.name + "." + audio_codec)
                 print(f"Downloading: {self.recording_url} --> {self.path}", file=sys.stderr)
-                download_file(self.recording_url, self.path, auth=host_creds)
+                download_file(self.recording_url, self.path, auth=auth)
 
         """{
   "transcript": "\nКатерина КЕЛЬБУС: == Україна хоче провести мирний саміт до кінця лютого, і зробити це планують в ООН"
@@ -146,7 +158,10 @@ class Record:
         utt_start_index = -1
         cur_utterance_id = start_utterance_id
         text = ja.get("transcript", "")
+        if text.startswith("\n"):
+            text = " " + text[1:]
         words = ja.get("words", [])
+        speaker_label_hyp_on = False  # TODO: try detect speaker labels by "==" marker even if some word(s) from the label aligned
         # for i, w in enumerate(words):
         for i in range(len(words) + 1):
             w = words[i] if i < len(words) else None
@@ -188,12 +203,27 @@ class Record:
                         continue
                     w["start"] = start_time - 0.1
                     w["end"] = start_time + 0.1
+            
+            if w is not None and self._is_start_of_line(text, w["startOffset"]):
+                if i + 1 < len(words):   # first word is actually a label that was mistakenly aligned?
+                    inter_word = text[w["endOffset"] : words[i+1]["startOffset"]]
+                    if "==" in inter_word:  # imitate speaker label start
+                        w["case"] == "not-found-in-audio"
+                        cur_speaker_name_offset = w["startOffset"]
+                        cur_speaker_name_start_index = i
+                        partial_speaker_name = text[cur_speaker_name_offset : w["endOffset"]]
+                        if len(speaker_name2id) < 2:
+                            print(f"    so far, collecting partial speaker name: {partial_speaker_name}", file=sys.stderr)
+                        continue
+
             if cur_speaker_name_offset >= 0 and i > 0:  # speaker label end is detected
                 cur_speaker_name = partial_speaker_name  # text[cur_speaker_name_offset : words[i-1]["endOffset"]]
                 speaker_name2id[cur_speaker_name] = speaker_name2id.get(cur_speaker_name, len(speaker_name2id)+1)
                 partial_speaker_name = ""
                 is_first_in_utt = True
 
+            is_first_in_utt = True if i == 0 else is_first_in_utt  # needed to fix speakerless label
+            
             prev_aligned_word_index = self._get_prev_aligned_word_index(words, i)
             prev_aligned_word = words[prev_aligned_word_index] if prev_aligned_word_index >= 0 else None
             if w is not None and not("start" in w and "end" in w):
@@ -240,6 +270,9 @@ class Record:
                             speaker_id=str(local_speaker_id),  #  self.get_global_speaker_id(self.name, str(local_speaker_id)),
                             utterance_id=f'U{cur_utterance_id-start_utterance_id:07d}', domain=domain, source=recording_id,
                             utterance_url=self.recording_url, recording_path=self.path)
+                        utt.clean_text_prefixes("==")
+                        #if "==" in utt_text:
+                            #print(f"DEBUG: == is cleaned to: {utt.text}", file=sys.stderr)
                         self.add_utterance(utt)
                         cur_utterance_id += 1
                     else:
@@ -304,8 +337,12 @@ class Record:
                 if not retain_skipped:
                     continue
             t = text[w["startOffset"] : stop_offset]
-            if keep_decoration and "alignedWord" in w:
-                (w["alignedWord"] + " ") 
+            if not keep_decoration:
+                if "alignedWord" in w:
+                    t = w["alignedWord"]  # + " "
+                t = "" if t=="<unk>" else t
+                if not t and "word" in w:
+                    t = w["word"]
             if result and not result.endswith(" "):
                 result += " "
             result += t
@@ -330,6 +367,7 @@ class Corpus:
         self.root = root
         self.url2record: Dict[str, Record] = {}
         self.host_creds = None
+        self.audio_codec = "wav"
         self.speakers = {}
         
     def get_global_speaker_id(self, recording_id, speaker_id):
@@ -393,7 +431,7 @@ class Corpus:
                     if self.root:
                         source = r.name  # ?
                         r.name = ""
-                        r.download_(self.root, stem, domain, self.host_creds)
+                        r.download_(self.root, stem, domain=domain, auth=self.host_creds, audio_codec=self.audio_codec)
             self.globalize_speaker_ids()  # update speaker ids
         if len(missing_alignments):
             print(f"Found {len(missing_alignments)} missing alignments", file=sys.stderr)
@@ -409,7 +447,7 @@ class Corpus:
                 local_speaker_id, text, normalized_text, start, end, utterance_url = line
 
             r = self.record_by_utterance_url(utterance_url)
-            r.download_(self.root, source, domain, self.host_creds)
+            r.download_(self.root, source, domain=domain, auth=self.host_creds, audio_codec=self.audio_codec)
 
             if end == "":
                 end = r.compute_duration() # end is missing for some final utterances: guess from file duration
@@ -451,6 +489,8 @@ def download_file(url: str, target_audio_path: Path, auth=None):
         else:
             raise ConnectionError("Download failed: status code {}\n{}".format(r.status_code, r.text))
 
+    if target_audio_path.exists():
+        return
     to_wav(file_path, target_audio_path)
     if not target_audio_path.exists():
         raise FileNotFoundError(f"Audio extraction failed for {file_path}")
@@ -476,29 +516,44 @@ def yt_dl(url, dir: Path):
 
 
 def to_wav(v: Path, a: Path):
-    cl = ["ffmpeg", "-i", str(v), "-vn", "-ac", "1", "-acodec", "pcm_s16le", "-ar", "16000", str(a)]
-    print(f"Converting audio by command: {' '.join(cl)}", file=sys.stderr)
+    cl = ["ffmpeg", "-i", str(v), "-vn", "-ac", "1", "-ar", "16000"]
+    ext = a.suffix
+    if ext.endswith("wav"):
+        cl += ["-acodec", "pcm_s16le"]
+    cl += [str(a)]
+    print(f"Extracting audio by command: {' '.join(cl)}", file=sys.stderr)
     subprocess.check_call(cl)
 
 
 def main():
-    csv_path = Path(sys.argv[1] if len(sys.argv) > 1 else "utterances.csv")
-    # corpus_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "")  # "data/corpus")
-    corpus_dir = sys.argv[2] if len(sys.argv) > 2 else ""  # "data/corpus"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("csv_path", help="Input path of either cvs-file or directory", default="utterances.csv")
+    parser.add_argument("corpus_dir", nargs="?", help="Store corpus to this directory", default="")
+    parser.add_argument("-a", "--authorization", default="oco:mykolynapohoda")
+    parser.add_argument("-ur", "--upper_records", help="Read at most records", default=-1)
+    parser.add_argument("-wt", "--write_text", help="Output file path for labeled text: <record_label> <text>", default="")
+    parser.add_argument("-ac", "--audio_codec", help="Format of audio to be stored", default="wav")
+    args = parser.parse_args()
+
+    #csv_path = Path(sys.argv[1] if len(sys.argv) > 1 else "utterances.csv")
+    csv_path = Path(args.csv_path)
+    #corpus_dir = sys.argv[2] if len(sys.argv) > 2 else ""  # "data/corpus"
+    corpus_dir = args.corpus_dir  # "data/corpus"
     if corpus_dir:  # do not download for empty dir path, which is interpreted as ./ by Path()
         corpus_dir = Path(corpus_dir)
         corpus_dir.mkdir(parents=True, exist_ok=True)
-    host_creds = sys.argv[3] if len(sys.argv) > 3 else "oco:mykolynapohoda"
+    host_creds = args.authorization  # sys.argv[3] if len(sys.argv) > 3 else "login:pass"
+    max_records = args.upper_records  # 1  # -1
     
     print(f"Reading {csv_path} and storing downloaded audio in '{corpus_dir}'", file=sys.stderr)
     corpus = Corpus(corpus_dir)
     corpus.host_creds = (host_creds.split(":", 1)[0], host_creds.split(":", 1)[1]) if ":" in host_creds else None
+    corpus.audio_codec = args.audio_codec
     if os.path.isfile(csv_path):
         with open(csv_path) as csv_file:
             corpus.from_csv(csv.reader(csv_file, delimiter=','))
     elif os.path.isdir(csv_path):
-        max_records = -1  # 1  # -1
-        valid_ids = None  # ["123184409"]  # None  ########### DEBUG ###########
+        valid_ids = None  # ["118271370"]  # ["123184409"]  # None  ########### DEBUG ###########
         print(f"... diving to the dir " + (f"for at most {max_records} records" if max_records >=0 else "") + "...", file=sys.stderr)
         corpus.from_dir(csv_path, domain="news", max_records=max_records, valid_ids=valid_ids)
         print(f"Processed {len(corpus.url2record.items())} records", file=sys.stderr)
@@ -506,6 +561,13 @@ def main():
     for _, record in corpus.url2record.items():
         for segment in record.utterances:
             print(json.dumps(asdict(segment), ensure_ascii=False))
+ 
+    if args.write_text:
+        print(f"Storing {len(corpus.url2record)} records to: {args.write_text}...", file=sys.stderr)
+        with open(args.write_text, "wt") as f:
+            for _, record in corpus.url2record.items():
+                text = record.to_text(allow_multiline=False, enable_decoration=True)
+                print(record.name, text, file=f)
 
 
 if __name__ == '__main__':
