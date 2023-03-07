@@ -101,7 +101,7 @@ class Record:
             'podcast': 'P',
             'youtube': 'Y',
             'news': 'N',
-        }.get(domain, "")
+        }[domain]
         return f'{domain_code}{x}'
 
     def download_(self, root, source, *, domain, auth, audio_codec="wav"):
@@ -269,7 +269,7 @@ class Record:
                             start=start_word["start"], end=cur_end_time,
                             speaker_id=str(local_speaker_id),  #  self.get_global_speaker_id(self.name, str(local_speaker_id)),
                             utterance_id=f'U{cur_utterance_id-start_utterance_id:07d}', domain=domain, source=recording_id,
-                            utterance_url=self.recording_url, recording_path=self.path)
+                            utterance_url=self.recording_url, recording_path=str(self.path))
                         utt.clean_text_prefixes("==")
                         #if "==" in utt_text:
                             #print(f"DEBUG: == is cleaned to: {utt.text}", file=sys.stderr)
@@ -419,19 +419,25 @@ class Corpus:
                     missing_alignments.append(align_path)
                     continue
                 print(f" [{i}] {url} ({stem})", file=sys.stderr)
+
                 with open(align_path) as f:
                     aj = json.loads(f.read())  # alignment json
+
                     r = Record(recording_url=url, name=Record.make_recording_id(stem, domain))
+
+                    if self.root:
+                        source = r.name  # ?
+                        r.name = ""
+                        r.download_(self.root, stem, domain=domain, auth=self.host_creds, audio_codec=self.audio_codec)
+
                     print(f"  id:{r.name}", file=sys.stderr)
                     # def from_alignment(self, ja: Dict, recording_id: AnyStr, domain="", start_utterance_id=1) -> List["Utterance"]:
                     r.from_alignment(aj, recording_id=r.name, domain=domain, start_utterance_id=utt_count)
                     utt_count += len(r.utterances)
                     print(f"  loaded {len(r.utterances)}, total {utt_count} utterances", file=sys.stderr)
+
                     self.url2record[url] = r
-                    if self.root:
-                        source = r.name  # ?
-                        r.name = ""
-                        r.download_(self.root, stem, domain=domain, auth=self.host_creds, audio_codec=self.audio_codec)
+
             self.globalize_speaker_ids()  # update speaker ids
         if len(missing_alignments):
             print(f"Found {len(missing_alignments)} missing alignments", file=sys.stderr)
