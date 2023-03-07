@@ -87,8 +87,8 @@ class Record:
         return t
     
     def compute_duration(self):
-        cmd = "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1".split()
-        return subprocess.check_output(cmd + [self.path])
+        cmd = "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 --".split()
+        return subprocess.check_output(cmd + [str(self.path)])
 
     @staticmethod
     def make_recording_id(x, domain):
@@ -516,13 +516,12 @@ def yt_dl(url, dir: Path):
 
 
 def to_wav(v: Path, a: Path):
-    cl = ["ffmpeg", "-i", str(v), "-vn", "-ac", "1", "-ar", "16000"]
-    ext = a.suffix
-    if ext.endswith("wav"):
+    cl = ["ffmpeg", "-loglevel", "quiet", "-i", str(v), "-vn", "-ac", "1"]
+    if a.suffix.endswith("wav"):
         cl += ["-acodec", "pcm_s16le"]
-    cl += [str(a)]
+    cl += ["-ar", "16000", "--", str(a)]
     print(f"Extracting audio by command: {' '.join(cl)}", file=sys.stderr)
-    subprocess.check_call(cl)
+    subprocess.check_output(cl)
 
 
 def main():
