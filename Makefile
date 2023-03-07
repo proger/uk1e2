@@ -42,17 +42,28 @@ data/local/text.filt1: data/local/text exp/segmented+aligned.ids
 	grep -- '-P' $@ > data/local/text.podcast
 	grep -- '-C' $@ > data/local/text.courses
 	grep -- '-Y' $@ > data/local/text.youtube
-data/local/text.interview data/local/text.podcast data/local/text.courses data/local/text.youtube: data/local/text.filt1
+	grep -- '-N' $@ > data/local/text.news
+data/local/text.news data/local/text.interview data/local/text.podcast data/local/text.courses data/local/text.youtube: data/local/text.filt1
 
-exp/wer: data/local/text.interview data/local/text.podcast data/local/text.courses data/local/text.youtube
-	compute-wer --mode=present ark:data/local/text.interview ark:exp/nemo_segmented+aligned
-	compute-wer --mode=present ark:data/local/text.podcast ark:exp/nemo_segmented+aligned
-	compute-wer --mode=present ark:data/local/text.courses ark:exp/nemo_segmented+aligned
-	compute-wer --mode=present ark:data/local/text.youtube ark:exp/nemo_segmented+aligned
-	compute-wer --mode=present ark:data/local/text.interview ark:exp/whisper.hyp
-	compute-wer --mode=present ark:data/local/text.podcast ark:exp/whisper.hyp
-	compute-wer --mode=present ark:data/local/text.courses ark:exp/whisper.hyp
-	compute-wer --mode=present ark:data/local/text.youtube ark:exp/whisper.hyp
+exp/wer: data/local/text.news data/local/text.interview data/local/text.podcast data/local/text.courses data/local/text.youtube
+	rm -f $@
+	compute-wer --mode=present ark:data/local/text.interview ark:exp/nemo_segmented+aligned | tee -a $@
+	compute-wer --mode=present ark:data/local/text.podcast ark:exp/nemo_segmented+aligned | tee -a $@
+	compute-wer --mode=present ark:data/local/text.courses ark:exp/nemo_segmented+aligned | tee -a $@
+	compute-wer --mode=present ark:data/local/text.youtube ark:exp/nemo_segmented+aligned | tee -a $@
+	compute-wer --mode=present ark:data/local/text.news ark:exp/nemo_segmented+aligned | tee -a $@
+	compute-wer --mode=present ark:data/local/text.interview ark:exp/whisper.hyp | tee -a $@
+	compute-wer --mode=present ark:data/local/text.podcast ark:exp/whisper.hyp | tee -a $@
+	compute-wer --mode=present ark:data/local/text.courses ark:exp/whisper.hyp | tee -a $@
+	compute-wer --mode=present ark:data/local/text.youtube ark:exp/whisper.hyp | tee -a $@
+	compute-wer --mode=present ark:data/local/text.news ark:exp/whisper.hyp | tee -a $@
+
+exp/dur: data/local/text.news data/local/text.interview data/local/text.podcast data/local/text.courses data/local/text.youtube
+	join data/local/utt2dur data/local/text.interview | awk '{print $$2}' | jq -rs 'add /60/60'
+	join data/local/utt2dur data/local/text.podcast | awk '{print $$2}' | jq -rs 'add /60/60'
+	join data/local/utt2dur data/local/text.courses  | awk '{print $$2}' | jq -rs 'add /60/60'
+	join data/local/utt2dur data/local/text.youtube | awk '{print $$2}' | jq -rs 'add /60/60'
+	join data/local/utt2dur data/local/text.news | awk '{print $$2}' | jq -rs 'add /60/60'
 
 # postprocess youtube txt brushlyk dump to tsv
 # this file has been edited manually to resolve timing monotonicity
