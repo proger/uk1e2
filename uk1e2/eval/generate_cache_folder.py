@@ -15,7 +15,7 @@ def add_paths(example):
     return example
 
 def path_exists(example):
-    return os.path.exists(example["path"])
+    return os.path.exists(example["path"]) and example["text"].strip() != ""
 
 def map_to_array(batch):
     path = batch["path"]
