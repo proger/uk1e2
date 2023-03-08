@@ -11,9 +11,9 @@ uk1e2.db: local_utterances.jsonl data/segments/wav.scp
 # aggregate source for utterances.csv
 intermediate.db: uk1e2.jsonl zipytable1.jsonl zipytable2.jsonl
 	rm -f $@
-	sqlite-utils insert $@ utterances uk1e2.jsonl --nl --quiet
-	sqlite-utils insert $@ utterances zipytable1.jsonl --nl --alter --quiet
-	sqlite-utils insert $@ utterances zipytable2.jsonl --nl --alter --quiet
+	sqlite-utils insert $@ utterances uk1e2.jsonl --nl --silent
+	sqlite-utils insert $@ utterances zipytable1.jsonl --nl --alter --silent
+	sqlite-utils insert $@ utterances zipytable2.jsonl --nl --alter --silent
 	sqlite-utils enable-fts $@ utterances text
 
 data/local/dict/g2p.fst:
