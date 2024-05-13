@@ -1,15 +1,21 @@
+import os
 import torchaudio
 
 from datasets import load_dataset
-
-# file with our dataset
-csv_test_file = 'segments_filtered.csv'
 
 # where to save the cached dataset
 cache_folder = 'segment.data'
 
 # number of processes to use
-processes = 5
+processes = os.cpu_count() or 1
+
+def add_paths(example):
+    path = f"data/segments/wav/{example['id']}.wav"
+    example["path"] = path
+    return example
+
+def path_exists(example):
+    return os.path.exists(example["path"]) and example["text"].strip() != ""
 
 def map_to_array(batch):
     path = batch["path"]
@@ -23,10 +29,10 @@ def map_to_array(batch):
     return batch
 
 # load the dataset
-ds = load_dataset('csv', data_files=csv_test_file)['train']
+ds = load_dataset('json', data_files={'test': 'local_utterances.jsonl'})['test']
 
 # process the dataset
-ds = ds.map(map_to_array, keep_in_memory=False, num_proc=processes)
+ds = ds.map(add_paths).filter(path_exists).map(map_to_array, keep_in_memory=False, num_proc=processes)
 
 # save the cached dataset to the disk
 ds.save_to_disk(cache_folder)
